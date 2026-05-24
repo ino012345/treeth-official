@@ -255,6 +255,10 @@ export function ProjectsShowcase() {
   }, [loaded]);
 
   const activeIdx = PROJECTS.findIndex(p => visibleCards.has(p.id));
+  // Keep the last known index so the counter doesn't flash back to "01"
+  // during the gap between projects (when activeIdx === -1).
+  const lastActiveIdxRef = useRef<number>(0);
+  if (activeIdx >= 0) lastActiveIdxRef.current = activeIdx;
 
   return (
     <section
@@ -387,7 +391,7 @@ export function ProjectsShowcase() {
           ].join(" ")}
         >
           <span className="text-5xl font-bold font-mono tracking-tighter text-white tabular-nums leading-none">
-            {activeIdx >= 0 ? String(activeIdx + 1).padStart(2, "0") : "01"}
+            {String(lastActiveIdxRef.current + 1).padStart(2, "0")}
           </span>
           <div className="w-px h-10 bg-white/15 my-3" />
           <span className="text-base font-mono text-white/25">
