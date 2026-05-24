@@ -26,7 +26,7 @@ export function FinalCTA() {
                   <br />
                   Digital Core?
                 </h2>
-                <p className="text-base text-white/60 leading-relaxed max-w-[42ch]">
+                <p className="text-base text-white/80 leading-relaxed max-w-[42ch]">
                   圧倒的なパフォーマンスと洗練されたデザインで、あなたのビジネスを次のステージへ。
                   プロジェクトのご相談・無料お見積もりはこちらからどうぞ。
                 </p>

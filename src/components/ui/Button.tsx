@@ -34,7 +34,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950/50";
+    "inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950";
   const classes = `${base} ${variantClasses[variant]} ${className}`;
 
   if ("href" in props && props.href !== undefined) {

@@ -47,7 +47,7 @@ export function CoreServices() {
               <br />
               3つのサービス
             </h2>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
               企画・設計からデザイン・実装・公開後の運用まで、
               Webサイトに関わるすべてを一貫してサポートします。
             </p>
@@ -68,13 +68,13 @@ export function CoreServices() {
 
                   {/* Text content */}
                   <div className="flex flex-col gap-2 flex-1">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
+                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
                       {en}
                     </p>
                     <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
                       {ja}
                     </h3>
-                    <p className="text-sm text-zinc-400 leading-relaxed mt-1">
+                    <p className="text-sm text-zinc-300 leading-relaxed mt-1">
                       {description}
                     </p>
                   </div>

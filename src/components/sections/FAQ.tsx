@@ -41,7 +41,7 @@ export function FAQ() {
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
               よくあるご質問
             </h2>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
               ご依頼前に気になる点を、まとめてお答えします。
             </p>
           </AnimatedItem>
@@ -58,7 +58,7 @@ export function FAQ() {
                       onClick={() => setOpenIndex(isOpen ? null : index)}
                       className={[
                         "w-full flex items-center justify-between gap-6 px-5 py-5 text-left",
-                        "rounded-xl transition-colors duration-200",
+                        "rounded-xl transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/70",
                         isOpen ? "bg-zinc-800/50" : "hover:bg-zinc-800/30",
                       ].join(" ")}
                     >
@@ -73,7 +73,7 @@ export function FAQ() {
                       <motion.span
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={SPRING}
-                        className="flex-shrink-0 text-zinc-400"
+                        className="flex-shrink-0 text-zinc-300"
                       >
                         <CaretDown size={18} weight="bold" />
                       </motion.span>
@@ -90,7 +90,7 @@ export function FAQ() {
                           transition={SPRING}
                           style={{ overflow: "hidden" }}
                         >
-                          <p className="px-5 pb-6 pt-1 text-sm text-zinc-400 leading-relaxed">
+                          <p className="px-5 pb-6 pt-1 text-sm text-zinc-300 leading-relaxed">
                             {item.a}
                           </p>
                         </motion.div>

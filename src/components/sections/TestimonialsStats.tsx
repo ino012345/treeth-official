@@ -55,7 +55,7 @@ export function TestimonialsStats() {
               <br />
               TREETHの実績
             </h2>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
               クライアントのビジネスに、確かな成果をお届けしてきました。
             </p>
           </AnimatedItem>
@@ -71,10 +71,10 @@ export function TestimonialsStats() {
                     {value}
                   </p>
                   <div className="flex flex-col gap-1">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
+                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
                       {en}
                     </p>
-                    <p className="text-sm text-zinc-400 leading-relaxed">{ja}</p>
+                    <p className="text-sm text-zinc-300 leading-relaxed">{ja}</p>
                   </div>
                   <div className="h-px w-full bg-gradient-to-r from-indigo-500/30 to-violet-500/30 mt-auto pt-3" />
                 </div>
@@ -96,7 +96,7 @@ export function TestimonialsStats() {
                   </div>
 
                   {/* Quote */}
-                  <p className="text-sm text-zinc-400 leading-relaxed flex-1">
+                  <p className="text-sm text-zinc-300 leading-relaxed flex-1">
                     &ldquo;{quote}&rdquo;
                   </p>
 

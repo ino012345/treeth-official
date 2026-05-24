@@ -320,7 +320,7 @@ export function BentoFeatures() {
               <br />
               4つの理由
             </h2>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
               単に「きれいなサイト」を作るのではなく、成果につながるWebサイトを届けることにこだわっています。
             </p>
           </AnimatedItem>
@@ -332,13 +332,13 @@ export function BentoFeatures() {
                 <div className="card-surface p-7 h-full flex flex-col gap-5">
                   <Visual />
                   <div className="flex flex-col gap-2">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
+                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
                       {en}
                     </p>
                     <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
                       {ja}
                     </h3>
-                    <p className="text-sm text-zinc-400 leading-relaxed">
+                    <p className="text-sm text-zinc-300 leading-relaxed">
                       {description}
                     </p>
                   </div>
@@ -354,13 +354,13 @@ export function BentoFeatures() {
                 <div className="card-surface p-7 h-full flex flex-col gap-5">
                   <Visual />
                   <div className="flex flex-col gap-2">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
+                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
                       {en}
                     </p>
                     <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
                       {ja}
                     </h3>
-                    <p className="text-sm text-zinc-400 leading-relaxed">
+                    <p className="text-sm text-zinc-300 leading-relaxed">
                       {description}
                     </p>
                   </div>

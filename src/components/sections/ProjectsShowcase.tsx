@@ -254,6 +254,8 @@ export function ProjectsShowcase() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [loaded]);
 
+  const activeIdx = PROJECTS.findIndex(p => visibleCards.has(p.id));
+
   return (
     <section
       id="projects"
@@ -333,7 +335,13 @@ export function ProjectsShowcase() {
               ].join(" ")}
             >
               {/* Dark glassmorphism card */}
-              <div className="bg-black/50 backdrop-blur-2xl border border-white/10 rounded-[20px] p-6">
+              <div className="bg-black/50 backdrop-blur-2xl border border-white/10 rounded-[20px] p-5 md:p-6">
+                {/* Project image placeholder */}
+                <div className="rounded-xl overflow-hidden aspect-video bg-gradient-to-br from-indigo-950/60 via-zinc-900/40 to-violet-950/60 border border-white/5 mb-5 flex items-center justify-center">
+                  <span className="text-white/10 text-[10px] font-mono tracking-widest uppercase">
+                    {proj.genre}
+                  </span>
+                </div>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex flex-col gap-1.5">
                     <p className="text-xs font-mono font-semibold tracking-widest text-indigo-400 uppercase">
@@ -362,6 +370,24 @@ export function ProjectsShowcase() {
             </div>
           );
         })}
+
+        {/* ── Project counter ──────────────────────────────────────────── */}
+        <div
+          className={[
+            "absolute right-8 md:right-12 top-1/2 -translate-y-1/2",
+            "flex flex-col items-center gap-0 pointer-events-none select-none",
+            "transition-opacity duration-500",
+            activeIdx >= 0 && !ctaVisible ? "opacity-100" : "opacity-0",
+          ].join(" ")}
+        >
+          <span className="text-5xl font-bold font-mono tracking-tighter text-white tabular-nums leading-none">
+            {activeIdx >= 0 ? String(activeIdx + 1).padStart(2, "0") : "01"}
+          </span>
+          <div className="w-px h-10 bg-white/15 my-3" />
+          <span className="text-base font-mono text-white/25">
+            {String(PROJECTS.length).padStart(2, "0")}
+          </span>
+        </div>
 
         {/* ── CTA overlay (appears at 82% scroll) ──────────────────────── */}
         {/* Uses React state (single boolean flip) with CSS transition.
