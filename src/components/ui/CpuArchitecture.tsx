@@ -154,7 +154,7 @@ export function CpuArchitecture() {
         letterSpacing="3"
         fill="url(#cpu-shimmer)"
       >
-        treeth
+        TREETH
       </text>
       <text
         x="240" y="163"

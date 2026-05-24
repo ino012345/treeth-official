@@ -40,7 +40,7 @@ export function Footer() {
 
           {/* Brand block */}
           <div className="flex flex-col gap-4 max-w-xs">
-            <p className="text-sm font-bold tracking-widest text-white uppercase">treeth</p>
+            <p className="text-sm font-bold tracking-widest text-white uppercase">TREETH</p>
             <p className="text-sm text-zinc-500 leading-relaxed">
               店舗・企業向けのコーポレートサイト・LP制作を手がけるWeb制作チーム。
               成果につながるWebサイトをお届けします。

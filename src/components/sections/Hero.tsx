@@ -221,16 +221,16 @@ export function Hero() {
           Always rendered; transitions to opacity-0 + pointer-events-none
           when loaded so the fade-out is smooth. */}
       <div
-        className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#f5f5f5] transition-opacity duration-700 ${
+        className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-zinc-950 transition-opacity duration-700 ${
           loaded ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
         aria-hidden={loaded}
       >
         <p className="text-[10px] tracking-widest uppercase text-zinc-400 mb-6">
-          treeth
+          TREETH
         </p>
         {/* Progress bar — gradient-accent defined in globals.css */}
-        <div className="w-48 h-1 bg-zinc-200 rounded-full overflow-hidden">
+        <div className="w-48 h-1 bg-zinc-800 rounded-full overflow-hidden">
           <div
             className="h-full gradient-accent rounded-full transition-all duration-150"
             style={{ width: `${Math.round(loadProgress * 100)}%` }}
@@ -265,6 +265,9 @@ export function Hero() {
             }}
           />
 
+          {/* Gradient overlay for text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none" />
+
           {/* ── Hero text overlay ──────────────────────────────────────────
               Opacity is updated directly via heroTextRef on each scroll tick.
               Pointer events disabled so overlay never blocks canvas interaction. */}
@@ -273,7 +276,7 @@ export function Hero() {
             className="absolute inset-0 flex flex-col items-center justify-center px-6 pointer-events-none select-none"
           >
             <p className="text-[10px] font-medium tracking-widest uppercase text-white/60 mb-6">
-              treeth — Web制作
+              TREETH — Web制作
             </p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tighter text-white text-center max-w-[18ch] drop-shadow-lg">
               あなたのビジネスを、
@@ -326,9 +329,9 @@ export function Hero() {
                   visible ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0",
                 ].join(" ")}
               >
-                <div className="card-surface p-4 max-w-[172px] md:max-w-[216px]">
-                  <p className="text-xs font-semibold text-zinc-800">{card.label}</p>
-                  <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">
+                <div className="card-surface p-5 md:p-6 max-w-[220px] md:max-w-xs">
+                  <p className="text-sm font-semibold text-zinc-100">{card.label}</p>
+                  <p className="text-xs text-zinc-400 mt-1.5 leading-relaxed">
                     {card.description}
                   </p>
                 </div>

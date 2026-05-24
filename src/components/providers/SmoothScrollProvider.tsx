@@ -11,26 +11,34 @@ export function SmoothScrollProvider({ children }: Props) {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
-      // lerp: 0.1 instead of default 0.1 — Safari iOS needs higher value to
-      // prevent microstutter on momentum scroll.
       lerp: 0.1,
-      // syncTouch: false prevents Lenis from hijacking native touch momentum
-      // on iOS Safari, which causes a visible "catch" on fling gestures.
       syncTouch: false,
       smoothWheel: true,
     });
 
-    let rafId: number;
+    const handleAnchorClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+      if (!anchor) return;
+      const hash = anchor.getAttribute("href");
+      if (!hash || hash === "#") return;
+      const target = document.querySelector(hash);
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target as HTMLElement, { duration: 1.2 });
+    };
 
+    document.addEventListener("click", handleAnchorClick);
+
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
       rafId = requestAnimationFrame(raf);
     }
-
     rafId = requestAnimationFrame(raf);
 
     return () => {
       cancelAnimationFrame(rafId);
+      document.removeEventListener("click", handleAnchorClick);
       lenis.destroy();
     };
   }, []);

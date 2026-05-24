@@ -38,17 +38,17 @@ export function FAQ() {
           {/* ── Section header ──────────────────────────────────────────── */}
           <AnimatedItem className="mb-12 md:mb-16 flex flex-col items-center gap-4 text-center">
             <EyebrowBadge>FAQ</EyebrowBadge>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-950 max-w-[22ch] leading-[1.1]">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
               よくあるご質問
             </h2>
-            <p className="text-zinc-500 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
               ご依頼前に気になる点を、まとめてお答えします。
             </p>
           </AnimatedItem>
 
           {/* ── Accordion list ───────────────────────────────────────────── */}
           <AnimatedItem>
-            <div className="max-w-3xl mx-auto divide-y divide-zinc-100 border-y border-zinc-100">
+            <div className="max-w-3xl mx-auto divide-y divide-zinc-800 border-y border-zinc-800">
               {FAQ_ITEMS.map((item, index) => {
                 const isOpen = openIndex === index;
                 return (
@@ -59,13 +59,13 @@ export function FAQ() {
                       className={[
                         "w-full flex items-center justify-between gap-6 px-5 py-5 text-left",
                         "rounded-xl transition-colors duration-200",
-                        isOpen ? "bg-zinc-50" : "hover:bg-zinc-50/60",
+                        isOpen ? "bg-zinc-800/50" : "hover:bg-zinc-800/30",
                       ].join(" ")}
                     >
                       <span
                         className={[
                           "text-base font-semibold leading-snug transition-colors duration-200",
-                          isOpen ? "text-zinc-950" : "text-zinc-700",
+                          isOpen ? "text-zinc-50" : "text-zinc-300",
                         ].join(" ")}
                       >
                         {item.q}
@@ -90,7 +90,7 @@ export function FAQ() {
                           transition={SPRING}
                           style={{ overflow: "hidden" }}
                         >
-                          <p className="px-5 pb-6 pt-1 text-sm text-zinc-500 leading-relaxed">
+                          <p className="px-5 pb-6 pt-1 text-sm text-zinc-400 leading-relaxed">
                             {item.a}
                           </p>
                         </motion.div>

@@ -30,10 +30,10 @@ export function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const textColor   = scrolled ? "text-zinc-800"  : "text-white";
-  const linkHover   = scrolled ? "hover:text-zinc-950" : "hover:text-white/80";
+  const textColor   = "text-white";
+  const linkHover   = "hover:text-white/80";
   const ctaClasses  = scrolled
-    ? "bg-zinc-950 text-white hover:bg-zinc-800 border border-transparent"
+    ? "bg-white/15 text-white hover:bg-white/25 border border-white/20"
     : "bg-white/15 text-white hover:bg-white/25 border border-white/30 backdrop-blur-sm";
 
   return (
@@ -41,7 +41,7 @@ export function Navbar() {
       className={[
         "fixed top-0 inset-x-0 z-40 transition-all duration-300",
         scrolled
-          ? "bg-white/40 backdrop-blur-2xl backdrop-saturate-150 border-b border-white/30 shadow-sm"
+          ? "bg-zinc-950/80 backdrop-blur-2xl backdrop-saturate-150 border-b border-zinc-800/60 shadow-sm"
           : "bg-transparent",
       ].join(" ")}
     >
@@ -53,7 +53,7 @@ export function Navbar() {
             href="/"
             className={`text-sm font-bold tracking-widest uppercase transition-colors duration-300 ${textColor}`}
           >
-            treeth
+            TREETH
           </a>
 
           {/* Desktop nav links */}
@@ -124,7 +124,7 @@ export function Navbar() {
             exit={{    height: 0, opacity: 0 }}
             transition={SPRING}
             style={{ overflow: "hidden" }}
-            className="bg-white/85 backdrop-blur-2xl border-t border-zinc-100 md:hidden"
+            className="bg-zinc-950/90 backdrop-blur-2xl border-t border-zinc-800 md:hidden"
           >
             <nav className="flex flex-col px-6 py-4 gap-1">
               {NAV_LINKS.map(({ label, href }) => (
@@ -132,7 +132,7 @@ export function Navbar() {
                   key={label}
                   href={href}
                   onClick={() => setMenuOpen(false)}
-                  className="py-3 text-sm font-medium text-zinc-700 hover:text-zinc-950 transition-colors border-b border-zinc-100 last:border-0"
+                  className="py-3 text-sm font-medium text-zinc-300 hover:text-zinc-50 transition-colors border-b border-zinc-800 last:border-0"
                 >
                   {label}
                 </a>

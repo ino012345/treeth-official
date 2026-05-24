@@ -325,7 +325,7 @@ export function ProjectsShowcase() {
             <div
               key={proj.id}
               className={[
-                "absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-sm px-4",
+                "absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-md md:max-w-lg px-4 md:px-6",
                 "pointer-events-none transition-all duration-500",
                 visible
                   ? "translate-y-0 opacity-100"
@@ -336,15 +336,15 @@ export function ProjectsShowcase() {
               <div className="bg-black/50 backdrop-blur-2xl border border-white/10 rounded-[20px] p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <p className="text-[10px] font-mono font-semibold tracking-widest text-indigo-400 uppercase">
+                    <p className="text-xs font-mono font-semibold tracking-widest text-indigo-400 uppercase">
                       Project {proj.number}
                     </p>
-                    <h3 className="text-sm font-semibold text-white leading-snug">
+                    <h3 className="text-base font-semibold text-white leading-snug">
                       {proj.title}
                     </h3>
-                    <p className="text-[11px] text-white/40 mt-0.5">{proj.genre}</p>
+                    <p className="text-xs text-white/40 mt-0.5">{proj.genre}</p>
                   </div>
-                  <span className="text-[11px] text-white/30 font-mono flex-shrink-0 mt-0.5">
+                  <span className="text-xs text-white/30 font-mono flex-shrink-0 mt-0.5">
                     {proj.year}
                   </span>
                 </div>
@@ -352,7 +352,7 @@ export function ProjectsShowcase() {
                   {proj.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] px-2.5 py-0.5 rounded-full border border-white/10 text-white/50"
+                      className="text-[11px] px-3 py-1 rounded-full border border-white/10 text-white/50"
                     >
                       {tag}
                     </span>
@@ -375,14 +375,14 @@ export function ProjectsShowcase() {
               : "opacity-0 pointer-events-none",
           ].join(" ")}
         >
-          <div className="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-[20px] p-10 flex flex-col items-center gap-6 text-center w-full max-w-sm">
+          <div className="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-[20px] p-10 flex flex-col items-center gap-6 text-center w-full max-w-md">
             <p className="text-[10px] tracking-widest uppercase text-indigo-400">
               Next Step
             </p>
             <h3 className="text-2xl font-semibold tracking-tight text-white leading-snug">
               あなたのサイトも
               <br />
-              treethにお任せください
+              TREETHにお任せください
             </h3>
             <p className="text-sm text-white/60 leading-relaxed">
               まずは無料でご相談ください。

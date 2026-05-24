@@ -56,7 +56,7 @@ function TypewriterVisual() {
   const text = useTypewriter(TYPEWRITER_PHRASES);
   return (
     <div className="flex items-center min-h-[96px]">
-      <p className="font-mono text-xl font-semibold text-zinc-950 leading-snug">
+      <p className="font-mono text-xl font-semibold text-zinc-50 leading-snug">
         {text}
         <motion.span
           className="text-indigo-500 ml-0.5"
@@ -90,7 +90,7 @@ function OrbVisual() {
       <div style={{ position: "relative", width: ORB_SIZE, height: ORB_SIZE }}>
         {/* Static orbit ring — not inside the rotating container */}
         <div
-          className="absolute rounded-full border border-dashed border-zinc-200"
+          className="absolute rounded-full border border-dashed border-zinc-700"
           style={{
             width: ORB_R * 2,
             height: ORB_R * 2,
@@ -107,7 +107,7 @@ function OrbVisual() {
         >
           <div className="w-11 h-11 rounded-full gradient-accent flex items-center justify-center shadow-md">
             <span className="text-white text-[9px] font-bold tracking-tight">
-              treeth
+              TREETH
             </span>
           </div>
         </div>
@@ -137,15 +137,15 @@ function OrbVisual() {
                   animate={{ rotate: -360 }}
                   transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
                   style={{
-                    background: "white",
+                    background: "#27272a",
                     fontSize: 10,
                     fontWeight: 600,
-                    color: "#52525b",
+                    color: "#a1a1aa",
                     padding: "3px 8px",
                     borderRadius: 8,
                     whiteSpace: "nowrap",
-                    boxShadow: "0 1px 6px rgba(0,0,0,0.08)",
-                    border: "1px solid rgba(0,0,0,0.06)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+                    border: "1px solid rgba(255,255,255,0.08)",
                   }}
                 >
                   {badge.label}
@@ -181,7 +181,7 @@ function WorkflowVisual() {
             key={i}
             x1={WF_CX} y1={WF_CY}
             x2={node.x} y2={node.y}
-            stroke="#e4e4e7"
+            stroke="#3f3f46"
             strokeWidth="1.5"
             strokeDasharray="3 3"
           />
@@ -192,7 +192,7 @@ function WorkflowVisual() {
           <circle
             key={i}
             cx={node.x} cy={node.y} r={5}
-            fill="white" stroke="#d4d4d8" strokeWidth="1.5"
+            fill="#18181b" stroke="#52525b" strokeWidth="1.5"
           />
         ))}
 
@@ -315,12 +315,12 @@ export function BentoFeatures() {
           {/* ── Section header ── */}
           <AnimatedItem className="mb-12 md:mb-16 flex flex-col gap-4">
             <EyebrowBadge>WHY CHOOSE US</EyebrowBadge>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-950 max-w-[22ch] leading-[1.1]">
-              treethが選ばれる
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
+              TREETHが選ばれる
               <br />
               4つの理由
             </h2>
-            <p className="text-zinc-500 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
               単に「きれいなサイト」を作るのではなく、成果につながるWebサイトを届けることにこだわっています。
             </p>
           </AnimatedItem>
@@ -335,10 +335,10 @@ export function BentoFeatures() {
                     <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
                       {en}
                     </p>
-                    <h3 className="text-lg font-semibold tracking-tight text-zinc-950">
+                    <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
                       {ja}
                     </h3>
-                    <p className="text-sm text-zinc-500 leading-relaxed">
+                    <p className="text-sm text-zinc-400 leading-relaxed">
                       {description}
                     </p>
                   </div>
@@ -357,10 +357,10 @@ export function BentoFeatures() {
                     <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
                       {en}
                     </p>
-                    <h3 className="text-lg font-semibold tracking-tight text-zinc-950">
+                    <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
                       {ja}
                     </h3>
-                    <p className="text-sm text-zinc-500 leading-relaxed">
+                    <p className="text-sm text-zinc-400 leading-relaxed">
                       {description}
                     </p>
                   </div>

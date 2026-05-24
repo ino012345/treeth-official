@@ -50,12 +50,12 @@ export function TestimonialsStats() {
           {/* ── Section header ──────────────────────────────────────────── */}
           <AnimatedItem className="mb-12 md:mb-16 flex flex-col gap-4">
             <EyebrowBadge>CLIENT VOICES</EyebrowBadge>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-950 max-w-[22ch] leading-[1.1]">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
               数字と声が証明する、
               <br />
-              treethの実績
+              TREETHの実績
             </h2>
-            <p className="text-zinc-500 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
               クライアントのビジネスに、確かな成果をお届けしてきました。
             </p>
           </AnimatedItem>
@@ -74,9 +74,9 @@ export function TestimonialsStats() {
                     <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
                       {en}
                     </p>
-                    <p className="text-sm text-zinc-500 leading-relaxed">{ja}</p>
+                    <p className="text-sm text-zinc-400 leading-relaxed">{ja}</p>
                   </div>
-                  <div className="h-px w-full bg-gradient-to-r from-indigo-100 to-violet-100 mt-auto pt-3" />
+                  <div className="h-px w-full bg-gradient-to-r from-indigo-500/30 to-violet-500/30 mt-auto pt-3" />
                 </div>
               </AnimatedItem>
             ))}
@@ -96,20 +96,20 @@ export function TestimonialsStats() {
                   </div>
 
                   {/* Quote */}
-                  <p className="text-sm text-zinc-600 leading-relaxed flex-1">
+                  <p className="text-sm text-zinc-400 leading-relaxed flex-1">
                     &ldquo;{quote}&rdquo;
                   </p>
 
                   {/* Author */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-zinc-100">
+                  <div className="flex items-center gap-3 pt-4 border-t border-zinc-800">
                     <div className="w-9 h-9 rounded-full gradient-accent flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-xs font-semibold">
                         {name.charAt(0)}
                       </span>
                     </div>
                     <div className="flex flex-col">
-                      <p className="text-sm font-semibold text-zinc-800">{name}</p>
-                      <p className="text-[11px] text-zinc-400">{role}</p>
+                      <p className="text-sm font-semibold text-zinc-100">{name}</p>
+                      <p className="text-[11px] text-zinc-500">{role}</p>
                     </div>
                   </div>
                 </div>

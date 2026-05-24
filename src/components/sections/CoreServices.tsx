@@ -42,12 +42,12 @@ export function CoreServices() {
           {/* ── Section header ──────────────────────────────────────────── */}
           <AnimatedItem className="mb-12 md:mb-16 flex flex-col gap-4">
             <EyebrowBadge>OUR SERVICES</EyebrowBadge>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-950 max-w-[22ch] leading-[1.1]">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
               事業の成長を支える
               <br />
               3つのサービス
             </h2>
-            <p className="text-zinc-500 text-lg leading-relaxed max-w-[48ch]">
+            <p className="text-zinc-400 text-lg leading-relaxed max-w-[48ch]">
               企画・設計からデザイン・実装・公開後の運用まで、
               Webサイトに関わるすべてを一貫してサポートします。
             </p>
@@ -71,16 +71,16 @@ export function CoreServices() {
                     <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
                       {en}
                     </p>
-                    <h3 className="text-lg font-semibold tracking-tight text-zinc-950">
+                    <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
                       {ja}
                     </h3>
-                    <p className="text-sm text-zinc-500 leading-relaxed mt-1">
+                    <p className="text-sm text-zinc-400 leading-relaxed mt-1">
                       {description}
                     </p>
                   </div>
 
                   {/* Bottom accent line */}
-                  <div className="h-px w-full bg-gradient-to-r from-indigo-100 to-violet-100" />
+                  <div className="h-px w-full bg-gradient-to-r from-indigo-500/30 to-violet-500/30" />
                 </div>
               </AnimatedItem>
             ))}
