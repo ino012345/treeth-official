@@ -331,7 +331,7 @@ export function BentoFeatures() {
               <AnimatedItem key={en}>
                 <div className="card-surface p-7 h-full flex flex-col gap-5">
                   <Visual />
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 mt-auto">
                     <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
                       {en}
                     </p>
@@ -353,7 +353,7 @@ export function BentoFeatures() {
               <AnimatedItem key={en}>
                 <div className="card-surface p-7 h-full flex flex-col gap-5">
                   <Visual />
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 mt-auto">
                     <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
                       {en}
                     </p>
