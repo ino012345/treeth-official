@@ -278,6 +278,9 @@ export function ProjectsShowcase() {
           }}
         />
 
+        {/* ── Persistent dim overlay — tones down tunnel video ─────────── */}
+        <div className="absolute inset-0 bg-black/55 pointer-events-none" />
+
         {/* ── Section-scoped loading overlay ───────────────────────────── */}
         {/* Positioned within the sticky container — no full-page cover needed
             since this section is below the fold during Hero preload. */}
@@ -327,45 +330,48 @@ export function ProjectsShowcase() {
             <div
               key={proj.id}
               className={[
-                "absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-md md:max-w-lg px-4 md:px-6",
+                "absolute inset-0 flex items-center justify-center px-6 md:px-10",
                 "pointer-events-none transition-all duration-500",
                 visible
                   ? "translate-y-0 opacity-100"
-                  : "translate-y-6 opacity-0",
+                  : "translate-y-4 opacity-0",
               ].join(" ")}
             >
+              {/* Card wrapper — full-width, centered, large */}
+              <div className="w-full max-w-[90vw] md:max-w-4xl pointer-events-auto">
               {/* Dark glassmorphism card */}
-              <div className="bg-black/50 backdrop-blur-2xl border border-white/10 rounded-[20px] p-5 md:p-6">
+              <div className="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-[24px] p-6 md:p-8">
                 {/* Project image placeholder */}
-                <div className="rounded-xl overflow-hidden aspect-video bg-gradient-to-br from-indigo-950/60 via-zinc-900/40 to-violet-950/60 border border-white/5 mb-5 flex items-center justify-center">
-                  <span className="text-white/10 text-[10px] font-mono tracking-widest uppercase">
+                <div className="rounded-xl overflow-hidden aspect-video bg-gradient-to-br from-indigo-950/60 via-zinc-900/40 to-violet-950/60 border border-white/5 mb-6 flex items-center justify-center">
+                  <span className="text-white/10 text-xs font-mono tracking-widest uppercase">
                     {proj.genre}
                   </span>
                 </div>
                 <div className="flex items-start justify-between gap-4">
-                  <div className="flex flex-col gap-1.5">
+                  <div className="flex flex-col gap-2">
                     <p className="text-xs font-mono font-semibold tracking-widest text-indigo-400 uppercase">
                       Project {proj.number}
                     </p>
-                    <h3 className="text-base font-semibold text-white leading-snug">
+                    <h3 className="text-lg md:text-xl font-semibold text-white leading-snug">
                       {proj.title}
                     </h3>
-                    <p className="text-xs text-white/40 mt-0.5">{proj.genre}</p>
+                    <p className="text-sm text-white/40 mt-0.5">{proj.genre}</p>
                   </div>
-                  <span className="text-xs text-white/30 font-mono flex-shrink-0 mt-0.5">
+                  <span className="text-sm text-white/30 font-mono flex-shrink-0 mt-0.5">
                     {proj.year}
                   </span>
                 </div>
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {proj.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[11px] px-3 py-1 rounded-full border border-white/10 text-white/50"
+                      className="text-xs px-3 py-1 rounded-full border border-white/10 text-white/50"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
+              </div>
               </div>
             </div>
           );
@@ -374,17 +380,17 @@ export function ProjectsShowcase() {
         {/* ── Project counter ──────────────────────────────────────────── */}
         <div
           className={[
-            "absolute right-8 md:right-12 top-1/2 -translate-y-1/2",
-            "flex flex-col items-center gap-0 pointer-events-none select-none",
+            "absolute top-8 right-8 md:right-10",
+            "flex items-baseline gap-1.5 pointer-events-none select-none",
             "transition-opacity duration-500",
             activeIdx >= 0 && !ctaVisible ? "opacity-100" : "opacity-0",
           ].join(" ")}
         >
-          <span className="text-5xl font-bold font-mono tracking-tighter text-white tabular-nums leading-none">
+          <span className="text-2xl font-bold font-mono tracking-tighter text-white tabular-nums leading-none">
             {activeIdx >= 0 ? String(activeIdx + 1).padStart(2, "0") : "01"}
           </span>
-          <div className="w-px h-10 bg-white/15 my-3" />
-          <span className="text-base font-mono text-white/25">
+          <span className="text-sm font-mono text-white/25 leading-none">/</span>
+          <span className="text-sm font-mono text-white/25 tabular-nums leading-none">
             {String(PROJECTS.length).padStart(2, "0")}
           </span>
         </div>
