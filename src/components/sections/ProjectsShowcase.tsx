@@ -380,17 +380,17 @@ export function ProjectsShowcase() {
         {/* ── Project counter ──────────────────────────────────────────── */}
         <div
           className={[
-            "absolute top-8 right-8 md:right-10",
-            "flex items-baseline gap-1.5 pointer-events-none select-none",
+            "absolute right-8 md:right-12 top-1/2 -translate-y-1/2",
+            "flex flex-col items-center gap-0 pointer-events-none select-none",
             "transition-opacity duration-500",
             activeIdx >= 0 && !ctaVisible ? "opacity-100" : "opacity-0",
           ].join(" ")}
         >
-          <span className="text-2xl font-bold font-mono tracking-tighter text-white tabular-nums leading-none">
+          <span className="text-5xl font-bold font-mono tracking-tighter text-white tabular-nums leading-none">
             {activeIdx >= 0 ? String(activeIdx + 1).padStart(2, "0") : "01"}
           </span>
-          <span className="text-sm font-mono text-white/25 leading-none">/</span>
-          <span className="text-sm font-mono text-white/25 tabular-nums leading-none">
+          <div className="w-px h-10 bg-white/15 my-3" />
+          <span className="text-base font-mono text-white/25">
             {String(PROJECTS.length).padStart(2, "0")}
           </span>
         </div>
