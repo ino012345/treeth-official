@@ -381,11 +381,11 @@ export function ProjectsShowcase() {
           );
         })}
 
-        {/* ── Project counter ──────────────────────────────────────────── */}
+        {/* ── Project counter: PC（右側縦型） ──────────────────────────── */}
         <div
           className={[
-            "absolute right-8 md:right-12 top-1/2 -translate-y-1/2",
-            "flex flex-col items-center gap-0 pointer-events-none select-none",
+            "absolute right-12 top-1/2 -translate-y-1/2",
+            "hidden md:flex flex-col items-center gap-0 pointer-events-none select-none",
             "transition-opacity duration-500",
             activeIdx >= 0 && !ctaVisible ? "opacity-100" : "opacity-0",
           ].join(" ")}
@@ -395,6 +395,24 @@ export function ProjectsShowcase() {
           </span>
           <div className="w-px h-10 bg-white/15 my-3" />
           <span className="text-base font-mono text-white/25">
+            {String(PROJECTS.length).padStart(2, "0")}
+          </span>
+        </div>
+
+        {/* ── Project counter: スマホ（下部横型） ──────────────────────── */}
+        <div
+          className={[
+            "absolute bottom-8 left-1/2 -translate-x-1/2",
+            "flex md:hidden items-baseline gap-1.5 pointer-events-none select-none",
+            "transition-opacity duration-500",
+            activeIdx >= 0 && !ctaVisible ? "opacity-100" : "opacity-0",
+          ].join(" ")}
+        >
+          <span className="text-xl font-bold font-mono tracking-tighter text-white tabular-nums leading-none">
+            {String(lastActiveIdxRef.current + 1).padStart(2, "0")}
+          </span>
+          <span className="text-sm font-mono text-white/30">/</span>
+          <span className="text-sm font-mono text-white/30 tabular-nums">
             {String(PROJECTS.length).padStart(2, "0")}
           </span>
         </div>
