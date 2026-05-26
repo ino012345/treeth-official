@@ -2,40 +2,41 @@ import { AnimatedSection, AnimatedItem } from "@/components/ui/AnimatedSection";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
 import { Star } from "@phosphor-icons/react/dist/ssr";
 
-// ─── Stats data ───────────────────────────────────────────────────────────────
+// ─── Stats data (Coconala実績ベース) ──────────────────────────────────────────
 
 const STATS = [
   {
-    value: "250%",
-    en: "Conversion Rate Increase",
-    ja: "LPリニューアル後の最大CVR向上率",
+    value: "45件",
+    en: "Completed Projects",
+    ja: "Coconala累計制作実績",
   },
   {
-    value: "50+",
-    en: "Projects Delivered",
-    ja: "立ち上げから手がけたプロジェクト数",
+    value: "5.0",
+    en: "Coconala Rating",
+    ja: "Coconala総合評価（満点）",
   },
   {
-    value: "99%",
-    en: "Client Satisfaction",
-    ja: "クライアント満足度",
+    value: "5年",
+    en: "Web Design Experience",
+    ja: "Web制作・デザイン経験年数",
   },
 ];
 
 // ─── Testimonials data ────────────────────────────────────────────────────────
+// ⚠️ 以下はプレースホルダーです。Coconalaの実際の口コミ文に差し替えてください。
 
 const TESTIMONIALS = [
   {
     quote:
-      "新しいランディングページを公開してわずか1ヶ月で、コンバージョン率が250%向上しました。スクロールに連動する3Dアニメーションが非常に滑らかで、他社との圧倒的な差別化に繋がっています。",
-    name: "クライアントA",
-    role: "Tech Startup CEO",
+      "WordPressなしでこれほどの表示速度が出るとは思いませんでした。打ち合わせから公開まで丁寧にサポートしていただき、イメージ通りのコーポレートサイトが完成しました。運用コストも大幅に削減できて大満足です。",
+    name: "クライアント様（コーポレートサイト）",
+    role: "飲食店オーナー",
   },
   {
     quote:
-      "私たちのブランドアイデンティティを完璧に体現したコーポレートサイトになりました。ピクセルパーフェクトな美しいデザインはもちろん、Next.jsによる高速な表示スピードにも驚いています。",
-    name: "クライアントB",
-    role: "Marketing Director",
+      "LP公開後すぐに問い合わせが増え、効果をリアルに感じています。デザインのクオリティが高く、スマホでも見やすい仕上がりで大変喜んでいます。修正対応も迅速で、信頼してお任せできました。",
+    name: "クライアント様（LP制作）",
+    role: "個人事業主",
   },
 ];
 
@@ -56,6 +57,7 @@ export function TestimonialsStats() {
               TREETHの実績
             </h2>
             <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
+              Coconalaでの累計45件の制作実績、総合評価5.0。
               クライアントのビジネスに、確かな成果をお届けしてきました。
             </p>
           </AnimatedItem>

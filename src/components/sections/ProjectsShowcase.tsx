@@ -126,27 +126,47 @@ export function ProjectsShowcase() {
   // CTA: single boolean flip at 82%
   const [ctaVisible, setCtaVisible] = useState(false);
 
-  // ── 1. Preload all tunnel frames ───────────────────────────────────────────
+  // ── 1. Lazy-load tunnel frames via IntersectionObserver ───────────────────
+  // Frames start loading only when the section is 500px from the viewport,
+  // cutting initial page load from 222 images down to 111 (Hero only).
   useEffect(() => {
-    let count = 0;
-    const imgs: HTMLImageElement[] = [];
+    const section = sectionRef.current;
+    if (!section) return;
 
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
-      img.src = `/tunnel-frames/frame_${String(i).padStart(4, "0")}.jpg`;
+    const startLoading = () => {
+      let count = 0;
+      const imgs: HTMLImageElement[] = [];
 
-      const onSettle = () => {
-        count++;
-        setLoadProgress(count / FRAME_COUNT);
-        if (count === FRAME_COUNT) setLoaded(true);
-      };
+      for (let i = 1; i <= FRAME_COUNT; i++) {
+        const img = new Image();
+        img.src = `/tunnel-frames/frame_${String(i).padStart(4, "0")}.jpg`;
 
-      img.onload = onSettle;
-      img.onerror = onSettle; // don't hang if a frame is missing
-      imgs.push(img);
-    }
+        const onSettle = () => {
+          count++;
+          setLoadProgress(count / FRAME_COUNT);
+          if (count === FRAME_COUNT) setLoaded(true);
+        };
 
-    framesRef.current = imgs;
+        img.onload = onSettle;
+        img.onerror = onSettle;
+        imgs.push(img);
+      }
+
+      framesRef.current = imgs;
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          startLoading();
+        }
+      },
+      { rootMargin: "500px" }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
   // ── 2. DPR-aware canvas sizing + redraw on resize ──────────────────────────

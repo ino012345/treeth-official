@@ -56,24 +56,39 @@ export function Hero() {
   const [loadProgress, setLoadProgress] = useState(0);
 
   // ── 1. Preload all frame images ─────────────────────────────────────────────
+  // Loads first 20 frames immediately (covers initial viewport render), then
+  // batches remaining frames in 20-frame chunks with setTimeout(0) to yield
+  // between chunks and avoid starving the main thread during initial paint.
   useEffect(() => {
     let count = 0;
-    const imgs: HTMLImageElement[] = [];
+    const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
+    const CHUNK = 20;
 
-    for (let i = 1; i <= FRAME_COUNT; i++) {
+    const loadFrame = (i: number) => {
       const img = new Image();
       img.src = `/frames/frame_${String(i).padStart(4, "0")}.jpg`;
-
       const onSettle = () => {
         count++;
         setLoadProgress(count / FRAME_COUNT);
         if (count === FRAME_COUNT) setLoaded(true);
       };
-
       img.onload = onSettle;
       img.onerror = onSettle;
-      imgs.push(img);
-    }
+      imgs[i - 1] = img;
+    };
+
+    // First chunk: load immediately
+    for (let i = 1; i <= CHUNK; i++) loadFrame(i);
+
+    // Remaining chunks: yield between each to avoid blocking paint
+    let next = CHUNK + 1;
+    const loadNextChunk = () => {
+      const end = Math.min(next + CHUNK - 1, FRAME_COUNT);
+      for (let i = next; i <= end; i++) loadFrame(i);
+      next = end + 1;
+      if (next <= FRAME_COUNT) setTimeout(loadNextChunk, 0);
+    };
+    if (next <= FRAME_COUNT) setTimeout(loadNextChunk, 0);
 
     framesRef.current = imgs;
   }, []);
