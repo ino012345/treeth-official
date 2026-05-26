@@ -46,7 +46,7 @@ export function Navbar() {
       ].join(" ")}
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-16">
 
           {/* Logo */}
           <a
@@ -56,8 +56,8 @@ export function Navbar() {
             TREETH
           </a>
 
-          {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop nav links — absolutely centered */}
+          <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8">
             {NAV_LINKS.map(({ label, href }) => (
               <a
                 key={label}
@@ -69,49 +69,51 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
-            <a
-              href="#contact"
-              className={[
-                "inline-flex items-center rounded-2xl px-5 py-2.5 text-sm font-medium transition-colors duration-200",
-                ctaClasses,
-              ].join(" ")}
-            >
-              Start a Project
-            </a>
-          </div>
+          {/* Right side: Desktop CTA + Mobile hamburger */}
+          <div className="flex items-center">
+            <div className="hidden md:block">
+              <a
+                href="#contact"
+                className={[
+                  "inline-flex items-center rounded-2xl px-5 py-2.5 text-sm font-medium transition-colors duration-200",
+                  ctaClasses,
+                ].join(" ")}
+              >
+                Start a Project
+              </a>
+            </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className={`md:hidden w-9 h-9 flex items-center justify-center rounded-xl transition-colors ${textColor}`}
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {menuOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0,   opacity: 1 }}
-                  exit={{    rotate:  90, opacity: 0 }}
-                  transition={SPRING}
-                >
-                  <X size={20} weight="bold" />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="open"
-                  initial={{ rotate:  90, opacity: 0 }}
-                  animate={{ rotate:   0, opacity: 1 }}
-                  exit={{    rotate: -90, opacity: 0 }}
-                  transition={SPRING}
-                >
-                  <List size={20} weight="bold" />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </button>
+            {/* Mobile hamburger */}
+            <button
+              className={`md:hidden w-9 h-9 flex items-center justify-center rounded-xl transition-colors ${textColor}`}
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {menuOpen ? (
+                  <motion.span
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0,   opacity: 1 }}
+                    exit={{    rotate:  90, opacity: 0 }}
+                    transition={SPRING}
+                  >
+                    <X size={20} weight="bold" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="open"
+                    initial={{ rotate:  90, opacity: 0 }}
+                    animate={{ rotate:   0, opacity: 1 }}
+                    exit={{    rotate: -90, opacity: 0 }}
+                    transition={SPRING}
+                  >
+                    <List size={20} weight="bold" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+          </div>
         </div>
       </div>
 

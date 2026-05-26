@@ -224,12 +224,10 @@ export function Hero() {
               TREETH — Web制作
             </p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tighter text-white max-w-[18ch]">
-              あなたのビジネスを、
-              <br />
-              Webで動かす。
+              Ignite the Digital Core.
             </h1>
             <p className="mt-4 text-base md:text-lg text-white/80 max-w-[45ch]">
-              店舗・企業向けコーポレートサイト・LP制作
+              ビジネスの核となる、圧倒的なデジタル体験を。妥協なき美しさと最新のテクノロジーが交差する場所で、あなたのブランドを次の次元へ引き上げます。
             </p>
 
             <div className="mt-8 pointer-events-auto">

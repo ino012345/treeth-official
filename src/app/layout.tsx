@@ -11,7 +11,7 @@ import { Footer } from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "TREETH — コーポレートサイト・LP制作 | WordPress不使用の高速Web制作",
   description:
-    "Coconala評価5.0・累計45件の実績を持つフリーランスWebクリエイター。WordPressを使わない高速・低コストなコーポレートサイト・LP制作。早稲田大学卒・応用情報技術者。",
+    "多数のプロジェクト実績を持つWebクリエイター。WordPressを使わない高速・低コストなコーポレートサイト・LP制作。早稲田大学卒・応用情報技術者。",
 };
 
 export default function RootLayout({
