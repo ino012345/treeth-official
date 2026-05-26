@@ -1,6 +1,6 @@
 import { AnimatedSection, AnimatedItem } from "@/components/ui/AnimatedSection";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
-import { Star } from "@phosphor-icons/react/dist/ssr";
+import { Star, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 // ─── Stats data ───────────────────────────────────────────────────────────────
 
@@ -27,13 +27,13 @@ const STATS = [
 const TESTIMONIALS = [
   {
     quote:
-      "明確なビジョンが定まっていない段階からの依頼でしたが、丁寧なヒアリングを通じて要件を精緻に言語化し、当初のイメージを大きく超えるクオリティで仕上げていただきました。デザインの洗練度はもちろん、レスポンスの迅速さや修正対応の的確さなど、プロジェクト全体を通じて一貫した高水準のプロフェッショナリズムを体感しました。信頼を持ってお任せできるWebクリエイターとして、ぜひ周囲にも推薦したいと思います。",
+      "完成イメージがまだぼんやりしていた段階でのご依頼でしたが、丁寧なヒアリングを通じてこちらの意図を的確に引き出していただき、最終的には期待をはるかに超えるクオリティのサイトが完成しました。デザインの洗練度はもちろん、コミュニケーションの迅速さや修正対応の丁寧さにも本当に助かりました。安心してお任せできる方で、ぜひ周囲にも勧めたいと思っています。",
     name: "クライアント様（コーポレートサイト）",
     role: "事業オーナー",
   },
   {
     quote:
-      "プロジェクトの開始から公開まで、一貫して丁寧なコミュニケーションと高い専門性でプロセスを牽引していただきました。技術力・デザイン力の両面における提案の精度はもちろん、ビジュアル素材の選定まで深くコミットしてくださり、ブランドの世界観を体現した仕上がりを実現。期待を大きく超えるアウトプットを生み出していただいた、心強いパートナーです。",
+      "最初から最後まで誠実かつ丁寧にご対応いただき、安心してお任せすることができました。技術力・デザイン力の高さはもちろん、ビジュアル素材の選定まで親身に提案していただき、イメージにぴったり（むしろそれ以上の！）仕上がりに本当に感動しました。treethさんにお願いして、本当に良かったと思っています。また機会があれば、ぜひご一緒させていただきたいです。",
     name: "クライアント様（LP制作）",
     role: "個人事業主",
   },
@@ -116,6 +116,19 @@ export function TestimonialsStats() {
               </AnimatedItem>
             ))}
           </div>
+
+          {/* ── Coconala profile link ────────────────────────────────────── */}
+          <AnimatedItem className="mt-8 flex justify-center">
+            <a
+              href="https://coconala.com/users/2538632"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/40 backdrop-blur-md px-5 py-2.5 text-sm text-zinc-400 hover:text-zinc-200 hover:border-zinc-700 transition-all duration-200 group"
+            >
+              Coconalaでの評価・実績を見る
+              <ArrowRight size={14} weight="bold" className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </a>
+          </AnimatedItem>
 
         </AnimatedSection>
       </div>

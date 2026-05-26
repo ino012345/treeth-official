@@ -1,6 +1,9 @@
 import { GithubLogo, InstagramLogo, TwitterLogo } from "@phosphor-icons/react/dist/ssr";
 
-const NAV_SECTIONS = [
+const NAV_SECTIONS: {
+  title: string;
+  links: { label: string; href: string; external?: boolean }[];
+}[] = [
   {
     title: "Service",
     links: [
@@ -20,9 +23,10 @@ const NAV_SECTIONS = [
     links: [
       { label: "よくある質問",   href: "#faq"     },
       { label: "お問い合わせ",   href: "#contact" },
+      { label: "Coconala Profile", href: "https://coconala.com/users/2538632", external: true },
     ],
   },
-] as const;
+];
 
 const SNS = [
   { Icon: TwitterLogo,   label: "Twitter / X", href: "#" },
@@ -68,10 +72,11 @@ export function Footer() {
                   {title}
                 </p>
                 <ul className="flex flex-col gap-3">
-                  {links.map(({ label, href }) => (
+                  {links.map(({ label, href, external }) => (
                     <li key={label}>
                       <a
                         href={href}
+                        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                         className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
                       >
                         {label}
