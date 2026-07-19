@@ -62,18 +62,22 @@ export function Hero() {
   // Loads first 20 frames immediately (covers initial viewport render), then
   // batches remaining frames in 20-frame chunks with setTimeout(0) to yield
   // between chunks and avoid starving the main thread during initial paint.
+  // The page reveals once READY_COUNT frames have settled — enough to cover the
+  // initial view and early scroll — while the rest keep loading in background.
+  // drawFrameToCanvas guards against not-yet-loaded frames (keeps last frame).
   useEffect(() => {
     let count = 0;
     const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
     const CHUNK = 20;
+    const READY_COUNT = 24;
 
     const loadFrame = (i: number) => {
       const img = new Image();
-      img.src = `/frames/frame_${String(i).padStart(4, "0")}.jpg`;
+      img.src = `/frames/frame_${String(i).padStart(4, "0")}.webp`;
       const onSettle = () => {
         count++;
-        setLoadProgress(count / FRAME_COUNT);
-        if (count === FRAME_COUNT) setLoaded(true);
+        setLoadProgress(Math.min(1, count / READY_COUNT));
+        if (count === READY_COUNT) setLoaded(true);
       };
       img.onload = onSettle;
       img.onerror = onSettle;

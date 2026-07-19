@@ -127,30 +127,48 @@ export function ProjectsShowcase() {
   const [ctaVisible, setCtaVisible] = useState(false);
 
   // ── 1. Lazy-load tunnel frames via IntersectionObserver ───────────────────
-  // Frames start loading only when the section is 500px from the viewport,
-  // cutting initial page load from 222 images down to 111 (Hero only).
+  // Frames start loading when the section is 2500px from the viewport — early
+  // enough that scrolling through the 400vh Hero hides most of the download.
+  // The section becomes interactive once READY_COUNT frames have settled
+  // (covers the intro + first project); the rest keep loading in background.
+  // drawTunnelFrame guards against not-yet-loaded frames (keeps last frame).
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const startLoading = () => {
       let count = 0;
-      const imgs: HTMLImageElement[] = [];
+      const imgs: HTMLImageElement[] = new Array(FRAME_COUNT);
+      const CHUNK = 20;
+      const READY_COUNT = 30;
 
-      for (let i = 1; i <= FRAME_COUNT; i++) {
+      const loadFrame = (i: number) => {
         const img = new Image();
-        img.src = `/tunnel-frames/frame_${String(i).padStart(4, "0")}.jpg`;
+        img.src = `/tunnel-frames/frame_${String(i).padStart(4, "0")}.webp`;
 
         const onSettle = () => {
           count++;
-          setLoadProgress(count / FRAME_COUNT);
-          if (count === FRAME_COUNT) setLoaded(true);
+          setLoadProgress(Math.min(1, count / READY_COUNT));
+          if (count === READY_COUNT) setLoaded(true);
         };
 
         img.onload = onSettle;
         img.onerror = onSettle;
-        imgs.push(img);
-      }
+        imgs[i - 1] = img;
+      };
+
+      // First chunk covers the ready threshold; request these before the rest
+      // so early frames win the bandwidth race.
+      for (let i = 1; i <= READY_COUNT; i++) loadFrame(i);
+
+      let next = READY_COUNT + 1;
+      const loadNextChunk = () => {
+        const end = Math.min(next + CHUNK - 1, FRAME_COUNT);
+        for (let i = next; i <= end; i++) loadFrame(i);
+        next = end + 1;
+        if (next <= FRAME_COUNT) setTimeout(loadNextChunk, 0);
+      };
+      if (next <= FRAME_COUNT) setTimeout(loadNextChunk, 0);
 
       framesRef.current = imgs;
     };
@@ -162,7 +180,7 @@ export function ProjectsShowcase() {
           startLoading();
         }
       },
-      { rootMargin: "500px" }
+      { rootMargin: "2500px" }
     );
 
     observer.observe(section);
