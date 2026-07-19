@@ -1,6 +1,10 @@
-import { AnimatedSection, AnimatedItem } from "@/components/ui/AnimatedSection";
+"use client";
+
+import { Fragment } from "react";
+import { motion } from "framer-motion";
+import { AnimatedSection, AnimatedItem, EASE_EXPO_OUT } from "@/components/ui/AnimatedSection";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
-import { Lightbulb, Code, CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { Lightbulb, Code, CheckCircle } from "@phosphor-icons/react";
 
 // ─── Process data ─────────────────────────────────────────────────────────────
 
@@ -31,6 +35,34 @@ const STEPS = [
   },
 ];
 
+// ─── Connecting arrow ─────────────────────────────────────────────────────────
+// Draws itself (pathLength 0→1) when the parent AnimatedSection enters view.
+// Variants propagate from AnimatedSection through the plain DOM wrappers.
+
+function TimelineArrow() {
+  return (
+    <div className="hidden md:flex items-center shrink-0 px-1" aria-hidden="true">
+      <svg width="48" height="24" viewBox="0 0 48 24" fill="none">
+        <motion.path
+          d="M2 12 H40 M32 4 L40 12 L32 20"
+          stroke="var(--accent-primary)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          variants={{
+            hidden: { pathLength: 0, opacity: 0 },
+            visible: {
+              pathLength: 1,
+              opacity: 1,
+              transition: { duration: 0.8, ease: EASE_EXPO_OUT },
+            },
+          }}
+        />
+      </svg>
+    </div>
+  );
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function ProcessMethodology() {
@@ -52,42 +84,47 @@ export function ProcessMethodology() {
             </p>
           </AnimatedItem>
 
-          {/* ── Step cards grid ─────────────────────────────────────────── */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {STEPS.map(({ Icon, number, en, ja, description }) => (
-              <AnimatedItem key={en}>
-                <div className="card-surface p-7 h-full flex flex-col gap-6 relative overflow-hidden">
+          {/* ── Horizontal timeline (stacks vertically on mobile) ───────── */}
+          <div className="flex flex-col md:flex-row md:items-stretch gap-10 md:gap-2">
+            {STEPS.map(({ Icon, number, en, ja, description }, i) => (
+              <Fragment key={en}>
+                <AnimatedItem className="relative flex-1">
 
-                  {/* Watermark number */}
+                  {/* Giant watermark number behind the card */}
                   <span
-                    className="absolute -top-3 -right-2 text-[120px] font-bold leading-none text-zinc-800 select-none pointer-events-none"
+                    className="hidden md:block absolute -top-24 -right-2 text-[200px] font-bold leading-none tracking-tighter text-zinc-900 select-none pointer-events-none"
                     aria-hidden="true"
                   >
                     {number}
                   </span>
 
-                  {/* Icon container */}
-                  <div className="w-12 h-12 rounded-2xl gradient-accent flex items-center justify-center flex-shrink-0 relative z-10">
-                    <Icon size={24} weight="duotone" color="white" />
-                  </div>
+                  <div className="card-surface p-7 h-full flex flex-col gap-6 relative z-10">
 
-                  {/* Text content */}
-                  <div className="flex flex-col gap-2 flex-1 relative z-10">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
-                      {en}
-                    </p>
-                    <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
-                      {ja}
-                    </h3>
-                    <p className="text-sm text-zinc-300 leading-relaxed mt-1">
-                      {description}
-                    </p>
-                  </div>
+                    {/* Icon container */}
+                    <div className="w-12 h-12 rounded-2xl gradient-accent flex items-center justify-center flex-shrink-0">
+                      <Icon size={24} weight="duotone" color="white" />
+                    </div>
 
-                  {/* Bottom accent line */}
-                  <div className="h-px w-full bg-gradient-to-r from-indigo-500/30 to-violet-500/30" />
-                </div>
-              </AnimatedItem>
+                    {/* Text content */}
+                    <div className="flex flex-col gap-2 flex-1">
+                      <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
+                        {en}
+                      </p>
+                      <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
+                        {ja}
+                      </h3>
+                      <p className="text-sm text-zinc-300 leading-relaxed mt-1">
+                        {description}
+                      </p>
+                    </div>
+
+                    {/* Bottom accent line */}
+                    <div className="h-px w-full bg-gradient-to-r from-indigo-500/30 via-violet-500/30 to-cyan-500/30" />
+                  </div>
+                </AnimatedItem>
+
+                {i < STEPS.length - 1 && <TimelineArrow />}
+              </Fragment>
             ))}
           </div>
 

@@ -55,8 +55,8 @@ function useTypewriter(phrases: readonly string[]) {
 function TypewriterVisual() {
   const text = useTypewriter(TYPEWRITER_PHRASES);
   return (
-    <div className="flex items-center min-h-[96px]">
-      <p className="font-mono text-xl font-semibold text-zinc-50 leading-snug">
+    <div className="flex items-center justify-center min-h-[140px]">
+      <p className="font-mono text-2xl md:text-3xl font-semibold text-zinc-50 leading-snug">
         {text}
         <motion.span
           className="text-indigo-500 ml-0.5"
@@ -86,7 +86,7 @@ const ORB_BADGES = [
 
 function OrbVisual() {
   return (
-    <div className="flex items-center justify-center min-h-[96px]">
+    <div className="flex flex-1 items-center justify-center min-h-[140px]">
       <div style={{ position: "relative", width: ORB_SIZE, height: ORB_SIZE }}>
         {/* Static orbit ring — not inside the rotating container */}
         <div
@@ -173,7 +173,7 @@ const WF_CYCLE = 1.2; // seconds per dot journey
 
 function WorkflowVisual() {
   return (
-    <div className="flex items-center justify-center min-h-[96px]">
+    <div className="flex items-center justify-center min-h-[140px]">
       <svg width="160" height="160" viewBox="0 0 160 160">
         {/* Dashed lines: center → each node */}
         {WORKFLOW_NODES.map((node, i) => (
@@ -246,11 +246,11 @@ const BAR_DATA = [
 
 function BarChartVisual() {
   return (
-    <div className="flex items-end justify-center gap-2 min-h-[96px] pb-1">
+    <div className="flex items-end justify-center gap-3 min-h-[140px] pb-1">
       {BAR_DATA.map((bar, i) => (
         <motion.div
           key={i}
-          className="w-7 rounded-t-xl"
+          className="w-10 rounded-t-xl"
           style={{
             background: "linear-gradient(to top, #6366f1, #8b5cf6)",
             height: bar.heights[0],
@@ -273,9 +273,23 @@ function BarChartVisual() {
 
 // ─── Card metadata ────────────────────────────────────────────────────────────
 
+// Asymmetric bento layout:
+//   "a a b"
+//   "c d d"
+// A (Design Philosophy) and D (High Performance) span 2 columns,
+// B (Modern Tech Stack) is the tall right column.
+// Static class strings so Tailwind can generate the arbitrary grid-area utilities.
+const AREA_CLASS = {
+  a: "md:[grid-area:a]",
+  b: "md:[grid-area:b]",
+  c: "md:[grid-area:c]",
+  d: "md:[grid-area:d]",
+} as const;
+
 const BENTO_CARDS = [
   {
     Visual: TypewriterVisual,
+    area: "a",
     en: "Design Philosophy",
     ja: "デザイン哲学",
     description:
@@ -283,6 +297,7 @@ const BENTO_CARDS = [
   },
   {
     Visual: OrbVisual,
+    area: "b",
     en: "Modern Tech Stack",
     ja: "最新の技術スタック",
     description:
@@ -290,6 +305,7 @@ const BENTO_CARDS = [
   },
   {
     Visual: WorkflowVisual,
+    area: "c",
     en: "Seamless Workflow",
     ja: "シームレスな進行",
     description:
@@ -297,12 +313,13 @@ const BENTO_CARDS = [
   },
   {
     Visual: BarChartVisual,
+    area: "d",
     en: "High Performance",
     ja: "圧倒的なパフォーマンス",
     description:
       "SEO最適化と徹底したパフォーマンス・チューニングでビジネスの成果を最大化。Core Web Vitalsへの対応で検索上位を狙います。",
   },
-];
+] as const;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -325,32 +342,10 @@ export function BentoFeatures() {
             </p>
           </AnimatedItem>
 
-          {/* ── Row 1: narrow (2fr) | wide (3fr) ── */}
-          <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-5 mb-5">
-            {BENTO_CARDS.slice(0, 2).map(({ Visual, en, ja, description }) => (
-              <AnimatedItem key={en}>
-                <div className="card-surface p-7 h-full flex flex-col gap-5">
-                  <Visual />
-                  <div className="flex flex-col gap-2 mt-auto">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
-                      {en}
-                    </p>
-                    <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
-                      {ja}
-                    </h3>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                      {description}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedItem>
-            ))}
-          </div>
-
-          {/* ── Row 2: wide (3fr) | narrow (2fr) ── */}
-          <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-5">
-            {BENTO_CARDS.slice(2, 4).map(({ Visual, en, ja, description }) => (
-              <AnimatedItem key={en}>
+          {/* ── Asymmetric bento grid: "a a b" / "c d d" ── */}
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:[grid-template-areas:'a_a_b'_'c_d_d']">
+            {BENTO_CARDS.map(({ Visual, area, en, ja, description }) => (
+              <AnimatedItem key={en} className={`h-full ${AREA_CLASS[area]}`}>
                 <div className="card-surface p-7 h-full flex flex-col gap-5">
                   <Visual />
                   <div className="flex flex-col gap-2 mt-auto">

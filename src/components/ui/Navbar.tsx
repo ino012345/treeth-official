@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { List, X } from "@phosphor-icons/react";
 
@@ -11,6 +11,40 @@ const NAV_LINKS = [
 ] as const;
 
 const SPRING = { type: "spring" as const, stiffness: 300, damping: 30 };
+const MAGNET_SPRING = { type: "spring" as const, stiffness: 200, damping: 15, mass: 0.4 };
+
+// ─── Magnetic nav link ────────────────────────────────────────────────────────
+// Drifts toward the cursor while hovered, springs back on leave.
+
+function MagneticLink({ label, href }: { label: string; href: string }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    setOffset({
+      x: (e.clientX - (rect.left + rect.width / 2)) * 0.3,
+      y: (e.clientY - (rect.top + rect.height / 2)) * 0.3,
+    });
+  };
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      onMouseMove={onMouseMove}
+      onMouseLeave={() => setOffset({ x: 0, y: 0 })}
+      animate={{ x: offset.x, y: offset.y }}
+      transition={MAGNET_SPRING}
+      className="text-sm text-white transition-colors duration-200 hover:text-white/80 px-1 py-2"
+    >
+      {label}
+    </motion.a>
+  );
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,11 +64,10 @@ export function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const textColor   = "text-white";
-  const linkHover   = "hover:text-white/80";
-  const ctaClasses  = scrolled
-    ? "bg-white/15 text-white hover:bg-white/25 border border-white/20"
-    : "bg-white/15 text-white hover:bg-white/25 border border-white/30 backdrop-blur-sm";
+  // Before scroll: white text inverts against the hero canvas via blend mode.
+  // The blend must live on an element without a background, so it sits on the
+  // inner row, not the glassmorphic header itself.
+  const blend = !scrolled && !menuOpen ? "mix-blend-difference" : "";
 
   return (
     <header
@@ -46,46 +79,50 @@ export function Navbar() {
       ].join(" ")}
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-8">
-        <div className="relative flex items-center justify-between h-16">
+        <div className={`relative flex items-center justify-between h-16 ${blend}`}>
 
-          {/* Logo */}
+          {/* Logo — tight tracking + gradient clip */}
           <a
             href="/"
-            className={`text-sm font-bold tracking-widest uppercase transition-colors duration-300 ${textColor}`}
+            className="text-lg font-black uppercase select-none"
+            style={{ letterSpacing: "-0.08em" }}
           >
-            TREETH
+            <span className={scrolled ? "text-gradient-accent" : "text-white"}>
+              TREETH
+            </span>
           </a>
 
-          {/* Desktop nav links — absolutely centered */}
+          {/* Desktop nav links — absolutely centered, magnetic */}
           <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8">
             {NAV_LINKS.map(({ label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className={`text-sm transition-colors duration-200 ${textColor} ${linkHover}`}
-              >
-                {label}
-              </a>
+              <MagneticLink key={label} label={label} href={href} />
             ))}
           </nav>
 
           {/* Right side: Desktop CTA + Mobile hamburger */}
           <div className="flex items-center">
             <div className="hidden md:block">
+              {/* CTA — rounded rectangle with left→right gradient border reveal */}
               <a
                 href="#contact"
-                className={[
-                  "inline-flex items-center rounded-2xl px-5 py-2.5 text-sm font-medium transition-colors duration-200",
-                  ctaClasses,
-                ].join(" ")}
+                className="group relative inline-flex items-center rounded-lg px-5 py-2.5 text-sm font-medium text-white bg-white/10 backdrop-blur-sm transition-colors duration-200 hover:bg-white/[0.16] overflow-hidden"
               >
-                Start a Project
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-lg border border-white/25"
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-lg border-2 transition-[clip-path] duration-500 ease-out [clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)]"
+                  style={{ borderColor: "var(--accent-primary)" }}
+                />
+                <span className="relative">Start a Project</span>
               </a>
             </div>
 
             {/* Mobile hamburger */}
             <button
-              className={`md:hidden w-9 h-9 flex items-center justify-center rounded-xl transition-colors ${textColor}`}
+              className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl transition-colors text-white"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "メニューを閉じる" : "メニューを開く"}
             >
@@ -142,7 +179,7 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setMenuOpen(false)}
-                className="mt-3 block w-full text-center rounded-2xl px-5 py-3 text-sm font-medium bg-zinc-950 text-white hover:bg-zinc-800 transition-colors"
+                className="mt-3 block w-full text-center rounded-lg px-5 py-3 text-sm font-medium bg-zinc-950 text-white hover:bg-zinc-800 transition-colors border border-zinc-800"
               >
                 Start a Project
               </a>

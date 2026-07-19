@@ -5,20 +5,30 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-card-bg: var(--card-bg);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-tertiary: var(--accent-tertiary);
+  --color-accent-warm: var(--accent-warm);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 :root {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --muted: #a1a1aa;
-  --card-bg: rgb(24 24 27 / 0.6);
+  --background: #050507;
+  --foreground: #f4f4f6;
+  --muted: #8b8b9a;
+  --card-bg: rgb(18 18 22 / 0.65);
 
-  /* Accent */
-  --accent-indigo: #6366f1;
-  --accent-violet: #8b5cf6;
-  --accent-amber: #fbbf24;
+  /* Multi-layer accents (OKLCH) */
+  --accent-primary: oklch(60% 0.22 265);   /* indigo */
+  --accent-secondary: oklch(58% 0.24 295); /* violet */
+  --accent-tertiary: oklch(65% 0.20 200);  /* cyan-teal */
+  --accent-warm: oklch(70% 0.18 30);       /* amber */
+
+  /* Legacy aliases — keep existing component references working */
+  --accent-indigo: var(--accent-primary);
+  --accent-violet: var(--accent-secondary);
+  --accent-amber: var(--accent-warm);
 }
 
 html {
@@ -36,12 +46,24 @@ body {
 /* ─── Utility classes ─────────────────────────────────── */
 
 .card-surface {
-  background: rgb(24 24 27 / 0.6);
+  position: relative;
+  background: var(--card-bg);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
   border-radius: 20px;
   border: 1px solid rgb(63 63 70 / 0.7);
-  transition: transform 300ms ease, border-color 300ms ease;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease;
+}
+
+/* Film-grain noise overlay (fractalNoise SVG, tiled) */
+.card-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
 }
 
 .card-surface:hover {
@@ -49,12 +71,27 @@ body {
   border-color: rgb(82 82 91 / 0.9);
 }
 
+/* Interactive variant: lift + subtle scale (must come after .card-surface:hover) */
+.card-interactive:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
 .gradient-accent {
-  background: linear-gradient(to right, var(--accent-indigo), var(--accent-violet));
+  background: linear-gradient(
+    120deg,
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-tertiary)
+  );
 }
 
 .text-gradient-accent {
-  background: linear-gradient(to right, var(--accent-indigo), var(--accent-violet));
+  background: linear-gradient(
+    120deg,
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-tertiary)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

@@ -6,6 +6,9 @@ import { ArrowRight } from "@phosphor-icons/react";
 
 const FRAME_COUNT = 111;
 
+const HEADLINE_WORDS = ["Ignite", "the", "Digital", "Core."];
+const EASE_EXPO_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 // ─── Canvas draw helper ────────────────────────────────────────────────────────
 function drawFrameToCanvas(
   canvas: HTMLCanvasElement,
@@ -220,17 +223,47 @@ export function Hero() {
             ref={heroTextRef}
             className="absolute inset-0 flex flex-col justify-end px-8 md:px-14 lg:px-20 pb-24 md:pb-28 pointer-events-none select-none"
           >
-            <p className="text-[10px] font-medium tracking-widest uppercase text-white/60 mb-4">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={loaded ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-[10px] font-medium tracking-widest uppercase text-white/60 mb-4"
+            >
               TREETH — Web制作
-            </p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tighter text-white max-w-[18ch]">
-              Ignite the Digital Core.
-            </h1>
-            <p className="mt-4 text-base md:text-lg text-white/80 max-w-[45ch]">
-              ビジネスの核となる、圧倒的なデジタル体験を。妥協なき美しさと最新のテクノロジーが交差する場所で、あなたのブランドを次の次元へ引き上げます。
-            </p>
+            </motion.p>
 
-            <div className="mt-8 pointer-events-auto">
+            {/* Split-text headline: word-by-word entrance once frames are loaded */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tighter text-white max-w-[18ch]">
+              {HEADLINE_WORDS.map((word, i) => (
+                <span key={word} className="inline-block overflow-hidden pb-1 align-bottom">
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: 60, opacity: 0 }}
+                    animate={loaded ? { y: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.8, delay: i * 0.08, ease: EASE_EXPO_OUT }}
+                  >
+                    {word}
+                    {i < HEADLINE_WORDS.length - 1 && " "}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0, filter: "blur(8px)" }}
+              animate={loaded ? { opacity: 1, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.9, delay: 0.3, ease: EASE_EXPO_OUT }}
+              className="mt-4 text-base md:text-lg text-white/80 max-w-[45ch]"
+            >
+              ビジネスの核となる、圧倒的なデジタル体験を。妥協なき美しさと最新のテクノロジーが交差する場所で、あなたのブランドを次の次元へ引き上げます。
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={loaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.5, ease: EASE_EXPO_OUT }}
+              className="mt-8 pointer-events-auto"
+            >
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-medium bg-white/15 text-white hover:bg-white/25 border border-white/30 backdrop-blur-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
@@ -238,21 +271,27 @@ export function Hero() {
                 無料相談を予約する
                 <ArrowRight size={16} weight="bold" />
               </a>
-            </div>
+            </motion.div>
           </div>
 
           {/* ── Scroll hint ───────────────────────────────────────────────── */}
-          <div className="absolute bottom-8 right-8 md:right-14 flex flex-col items-center gap-2 pointer-events-none select-none">
+          <div className="absolute bottom-8 right-8 md:right-14 flex flex-col items-center gap-3 pointer-events-none select-none">
             <span className="text-[10px] tracking-widest uppercase text-white/50">
               Scroll
             </span>
-            <motion.div
-              className="h-6 w-4 rounded-full border-2 border-white/40 flex items-start justify-center pt-1"
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <div className="h-1.5 w-1.5 rounded-full bg-white/60" />
-            </motion.div>
+            {/* Vertical line extending downward on loop */}
+            <div className="h-12 w-px overflow-hidden">
+              <motion.div
+                className="h-full w-full bg-gradient-to-b from-white/70 to-white/10 origin-top"
+                animate={{ scaleY: [0, 1, 1, 0] }}
+                transition={{
+                  duration: 2,
+                  times: [0, 0.45, 0.7, 1],
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            </div>
           </div>
         </div>
       </section>

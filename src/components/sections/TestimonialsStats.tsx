@@ -1,25 +1,14 @@
 import { AnimatedSection, AnimatedItem } from "@/components/ui/AnimatedSection";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
+import { Marquee } from "@/components/ui/Marquee";
 import { Star, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
-// ─── Stats data ───────────────────────────────────────────────────────────────
+// ─── Stats data (rendered as a reverse marquee band) ──────────────────────────
 
 const STATS = [
-  {
-    value: "5.0 / 5.0",
-    en: "Client Satisfaction",
-    ja: "単なるWeb制作に留まらず、圧倒的な視覚体験と技術力でクライアントの期待を常に超える成果を追求します。",
-  },
-  {
-    value: "Strategic",
-    en: "Business-First Design",
-    ja: "表面的なデザインだけでなく、ブランドの本質的な魅力を最大化し、ターゲットに深く刺さる戦略的な設計を徹底します。",
-  },
-  {
-    value: "Seamless",
-    en: "End-to-End Experience",
-    ja: "透明性の高いコミュニケーションとプロの進行管理で、企画から公開まで一切のストレスなく完遂します。",
-  },
+  { value: "5.0 / 5.0", en: "Client Satisfaction", starred: true },
+  { value: "Strategic", en: "Business-First Design", starred: false },
+  { value: "Seamless", en: "End-to-End Experience", starred: false },
 ];
 
 // ─── Testimonials data ────────────────────────────────────────────────────────
@@ -43,8 +32,8 @@ const TESTIMONIALS = [
 
 export function TestimonialsStats() {
   return (
-    <section className="px-6 py-24 md:px-8 md:py-32 bg-[var(--background)]">
-      <div className="mx-auto max-w-[1400px]">
+    <section className="py-24 md:py-32 bg-[var(--background)]">
+      <div className="mx-auto max-w-[1400px] px-6 md:px-8">
         <AnimatedSection>
 
           {/* ── Section header ──────────────────────────────────────────── */}
@@ -59,51 +48,64 @@ export function TestimonialsStats() {
               圧倒的なクオリティと戦略的な設計で、クライアントのビジネスに確かな変革をもたらしてきました。
             </p>
           </AnimatedItem>
+        </AnimatedSection>
+      </div>
 
-          {/* ── Stats row ───────────────────────────────────────────────── */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
-            {STATS.map(({ value, en, ja }) => (
-              <AnimatedItem key={en}>
-                <div className="card-surface p-7 flex flex-col gap-3">
-                  <p
-                    className="text-5xl md:text-6xl font-bold tracking-tighter bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-transparent"
-                  >
-                    {value}
-                  </p>
-                  <div className="flex flex-col gap-1">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
-                      {en}
-                    </p>
-                    <p className="text-sm text-zinc-300 leading-relaxed">{ja}</p>
-                  </div>
-                  <div className="h-px w-full bg-gradient-to-r from-indigo-500/30 to-violet-500/30 mt-auto pt-3" />
-                </div>
-              </AnimatedItem>
-            ))}
-          </div>
+      {/* ── Stats band: reverse-direction marquee (full-bleed) ──────────── */}
+      <Marquee reverse duration={26} className="mb-16 md:mb-20 border-y border-zinc-900 py-6">
+        {STATS.map(({ value, en, starred }) => (
+          <span key={en} className="flex items-center">
+            {starred && (
+              <Star size={22} weight="fill" className="text-amber-400 ml-6 mr-3 shrink-0" />
+            )}
+            <span
+              className={`text-2xl md:text-3xl font-bold tracking-tighter text-gradient-accent ${starred ? "" : "pl-6"}`}
+            >
+              {value}
+            </span>
+            <span className="text-xs md:text-sm font-medium tracking-widest uppercase text-zinc-500 pl-4">
+              {en}
+            </span>
+            <span className="text-2xl text-zinc-800 pl-6 select-none" aria-hidden="true">
+              ·
+            </span>
+          </span>
+        ))}
+      </Marquee>
+
+      <div className="mx-auto max-w-[1400px] px-6 md:px-8">
+        <AnimatedSection>
 
           {/* ── Testimonials row ─────────────────────────────────────────── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {TESTIMONIALS.map(({ quote, name, role }) => (
               <AnimatedItem key={name}>
-                <div className="card-surface p-7 h-full flex flex-col gap-5">
+                <div className="card-surface p-7 h-full flex flex-col gap-5 relative overflow-hidden">
+
+                  {/* Oversized decorative quote mark */}
+                  <span
+                    className="absolute top-1 left-4 text-[80px] leading-none font-serif text-indigo-500/20 select-none pointer-events-none"
+                    aria-hidden="true"
+                  >
+                    &ldquo;
+                  </span>
 
                   {/* 5-star rating */}
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 relative z-10 pt-6">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} size={16} weight="fill" className="text-amber-400" />
                     ))}
                   </div>
 
                   {/* Quote */}
-                  <p className="text-sm text-zinc-300 leading-relaxed flex-1">
+                  <p className="text-sm text-zinc-300 leading-relaxed flex-1 relative z-10">
                     &ldquo;{quote}&rdquo;
                   </p>
 
                   {/* Author */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-zinc-800">
-                    <div className="w-9 h-9 rounded-full gradient-accent flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-semibold">
+                  <div className="flex items-center gap-3 pt-4 border-t border-zinc-800 relative z-10">
+                    <div className="w-10 h-10 rounded-full gradient-accent flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-lg font-black">
                         {name.charAt(0)}
                       </span>
                     </div>

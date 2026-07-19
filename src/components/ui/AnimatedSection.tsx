@@ -9,12 +9,15 @@ const containerVariants = {
   },
 };
 
+// Expo-out easing shared by every scroll-reveal on the site
+export const EASE_EXPO_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring" as const, stiffness: 100, damping: 20 },
+    transition: { duration: 0.7, ease: EASE_EXPO_OUT },
   },
 };
 
