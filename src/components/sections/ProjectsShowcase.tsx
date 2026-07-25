@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import NextImage from "next/image";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
 import { Button } from "@/components/ui/Button";
 
 const FRAME_COUNT = 111;
 
-// ─── Project data (replace with real content later) ───────────────────────────
+// ─── Project data ─────────────────────────────────────────────────────────────
 
 const PROJECTS = [
   {
@@ -14,50 +15,45 @@ const PROJECTS = [
     show: 0.04,
     hide: 0.17,
     number: "01",
-    title: "株式会社○○ コーポレートサイト",
+    title: "合同会社トーラス企画 コーポレートサイト",
     genre: "Corporate Website",
     tags: ["コーポレート", "ブランディング"],
-    year: "2024",
   },
   {
     id: "proj-2",
     show: 0.20,
     hide: 0.33,
     number: "02",
-    title: "○○サービス ランディングページ",
-    genre: "Landing Page",
-    tags: ["LP", "CVR最適化"],
-    year: "2024",
+    title: "合同会社トーラス企画 製品紹介サイト",
+    genre: "Product Site",
+    tags: ["製品紹介", "訴求設計"],
   },
   {
     id: "proj-3",
     show: 0.36,
     hide: 0.49,
     number: "03",
-    title: "○○店舗 予約・集客サイト",
+    title: "中国料理 煖 ホームページ",
     genre: "Corporate Website",
-    tags: ["店舗サイト", "予約機能"],
-    year: "2024",
+    tags: ["飲食店", "店舗サイト"],
   },
   {
     id: "proj-4",
     show: 0.52,
     hide: 0.64,
     number: "04",
-    title: "○○ブランド ECサイト＋LP",
-    genre: "Landing Page",
-    tags: ["EC", "商品訴求"],
-    year: "2024",
+    title: "高山産業 コーポレートサイト",
+    genre: "Corporate Website",
+    tags: ["製造業", "コーポレート"],
   },
   {
     id: "proj-5",
     show: 0.67,
     hide: 0.78,
     number: "05",
-    title: "○○クリニック Webリニューアル",
+    title: "岡田薬局 ホームページ",
     genre: "Corporate Website",
-    tags: ["医療", "UI/UX刷新"],
-    year: "2024",
+    tags: ["薬局", "店舗サイト"],
   },
 ] as const;
 
@@ -383,11 +379,15 @@ export function ProjectsShowcase() {
               <div className="w-full max-w-[90vw] md:max-w-4xl pointer-events-auto">
               {/* Dark glassmorphism card */}
               <div className="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-[24px] p-6 md:p-8">
-                {/* Project image placeholder */}
-                <div className="rounded-xl overflow-hidden aspect-video bg-gradient-to-br from-indigo-950/60 via-zinc-900/40 to-violet-950/60 border border-white/5 mb-6 flex items-center justify-center">
-                  <span className="text-white/10 text-xs font-mono tracking-widest uppercase">
-                    {proj.genre}
-                  </span>
+                {/* Project screenshot */}
+                <div className="relative rounded-xl overflow-hidden aspect-video bg-zinc-900 border border-white/5 mb-6">
+                  <NextImage
+                    src={`/projects/${proj.id}.webp`}
+                    alt={proj.title}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 90vw, 830px"
+                  />
                 </div>
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex flex-col gap-2">
@@ -399,9 +399,6 @@ export function ProjectsShowcase() {
                     </h3>
                     <p className="text-sm text-white/40 mt-0.5">{proj.genre}</p>
                   </div>
-                  <span className="text-sm text-white/30 font-mono flex-shrink-0 mt-0.5">
-                    {proj.year}
-                  </span>
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {proj.tags.map((tag) => (
