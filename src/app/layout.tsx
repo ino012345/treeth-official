@@ -9,9 +9,9 @@ import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "TREETH — コーポレートサイト・LP制作 | WordPress不使用の高速Web制作",
+  title: "TREETH — コーポレートサイト・LP制作 | 高速・低コストなWeb制作",
   description:
-    "多数のプロジェクト実績を持つWebクリエイター。WordPressを使わない高速・低コストなコーポレートサイト・LP制作。早稲田大学卒・応用情報技術者。",
+    "多数のプロジェクト実績を持つWebクリエイター。高速・低コストなコーポレートサイト・LP制作。早稲田大学卒・応用情報技術者。",
 };
 
 export default function RootLayout({
