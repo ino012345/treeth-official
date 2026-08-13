@@ -1,5 +1,3 @@
-import { GithubLogo, InstagramLogo, TwitterLogo } from "@phosphor-icons/react/dist/ssr";
-
 const NAV_SECTIONS: {
   title: string;
   links: { label: string; href: string; external?: boolean }[];
@@ -28,12 +26,6 @@ const NAV_SECTIONS: {
   },
 ];
 
-const SNS = [
-  { Icon: TwitterLogo,   label: "Twitter / X", href: "#" },
-  { Icon: InstagramLogo, label: "Instagram",    href: "#" },
-  { Icon: GithubLogo,    label: "GitHub",       href: "#" },
-] as const;
-
 export function Footer() {
   return (
     <footer className="bg-zinc-950 px-6 py-16 md:px-8">
@@ -49,19 +41,6 @@ export function Footer() {
               店舗・企業向けのコーポレートサイト・LP制作を手がけるWeb制作チーム。
               成果につながるWebサイトをお届けします。
             </p>
-            {/* SNS icons */}
-            <div className="flex items-center gap-2 mt-1">
-              {SNS.map(({ Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-8 h-8 rounded-full bg-zinc-800 hover:bg-zinc-700 flex items-center justify-center transition-colors"
-                >
-                  <Icon size={15} weight="fill" className="text-zinc-400" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Nav sections */}
@@ -95,10 +74,10 @@ export function Footer() {
             © {new Date().getFullYear()} treeth. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors">
+            <a href="/privacy" className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors">
               プライバシーポリシー
             </a>
-            <a href="#" className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors">
+            <a href="/tokushoho" className="text-[11px] text-zinc-600 hover:text-zinc-400 transition-colors">
               特定商取引法に基づく表記
             </a>
           </div>
