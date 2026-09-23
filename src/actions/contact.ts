@@ -4,10 +4,33 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+/**
+ * Sender identity. Must be an address on a domain verified in Resend —
+ * treeth.net is verified (DKIM at resend._domainkey.treeth.net, SPF + bounce MX
+ * on send.treeth.net), so mail sent from it aligns for DMARC.
+ *
+ * The visitor's own address is never used here: putting a third party's address
+ * in From fails their domain's SPF/DKIM and gets the mail spam-foldered or
+ * rejected. Their address goes in Reply-To instead, so hitting reply still
+ * reaches them.
+ */
+const FROM = process.env.RESEND_FROM_EMAIL ?? "TREETH <contact@treeth.net>";
+
 export interface ActionResult {
   success: boolean;
   error?: string;
 }
+
+/** Generic message shown to visitors. Never surfaces internal detail. */
+const GENERIC_ERROR = "送信に失敗しました。しばらくしてから再度お試しください。";
+
+// Subject lines carry the visitor's name. Strip CR/LF so a crafted name cannot
+// attempt header injection, and cap the length so the header stays sane.
+function sanitizeForHeader(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").slice(0, 80);
+}
+
+const LIMITS = { name: 100, email: 254, message: 5000 };
 
 export async function sendContactEmail(
   _prevState: ActionResult,
@@ -22,17 +45,32 @@ export async function sendContactEmail(
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
+  if (!emailRegex.test(email) || email.length > LIMITS.email) {
     return { success: false, error: "有効なメールアドレスを入力してください。" };
   }
 
-  const to = process.env.CONTACT_EMAIL ?? "yutainoue0225@gmail.com";
+  if (name.length > LIMITS.name) {
+    return { success: false, error: "お名前は100文字以内でご入力ください。" };
+  }
+
+  if (message.length > LIMITS.message) {
+    return { success: false, error: "お問い合わせ内容は5000文字以内でご入力ください。" };
+  }
+
+  const to = process.env.CONTACT_EMAIL;
+  if (!to) {
+    // Misconfiguration, not a visitor mistake. Log the fact without any form
+    // data, and show the visitor the same generic message.
+    console.error("[contact] CONTACT_EMAIL is not configured; cannot deliver.");
+    return { success: false, error: GENERIC_ERROR };
+  }
 
   const { error } = await resend.emails.send({
-    from: "treeth お問い合わせフォーム <onboarding@resend.dev>",
+    from: FROM,
     to: [to],
+    // Replying to the notification reaches the person who filled in the form.
     replyTo: email,
-    subject: `【treeth】${name} 様からのお問い合わせ`,
+    subject: `【treeth】${sanitizeForHeader(name)} 様からのお問い合わせ`,
     text: [
       `お名前: ${name}`,
       `メールアドレス: ${email}`,
@@ -43,8 +81,11 @@ export async function sendContactEmail(
   });
 
   if (error) {
-    console.error("Resend error:", error);
-    return { success: false, error: "送信に失敗しました。しばらくしてから再度お試しください。" };
+    // Log only the error type. The full error object can echo back request
+    // content, and this runs in a shared log stream — no submitted data, no
+    // address, no message body goes to the console.
+    console.error(`[contact] send failed: ${error.name}`);
+    return { success: false, error: GENERIC_ERROR };
   }
 
   return { success: true };
