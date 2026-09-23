@@ -286,38 +286,41 @@ const AREA_CLASS = {
   d: "md:[grid-area:d]",
 } as const;
 
+// Copy rewritten from superlatives ("圧倒的" / "妥協のない" / "最大化") into
+// concrete, checkable customer benefits. Technology names are kept as the
+// evidence for a benefit, not as the headline. See docs/uiux-audit.md §E, §N.
 const BENTO_CARDS = [
   {
     Visual: TypewriterVisual,
     area: "a",
-    en: "Design Philosophy",
-    ja: "デザイン哲学",
+    en: "Design",
+    ja: "細部まで整えたデザイン",
     description:
-      "妥協のないピクセルパーフェクトなデザインを提供します。見た目の美しさと機能性を両立し、ブランドの第一印象を最大化します。",
+      "余白・文字サイズ・配色を一つずつ調整し、初めて訪れた人にもお店や会社の雰囲気が伝わる画面に仕上げます。スマートフォンでの見やすさを優先して設計します。",
   },
   {
     Visual: OrbVisual,
     area: "b",
-    en: "Modern Tech Stack",
-    ja: "最新の技術スタック",
+    en: "Technology",
+    ja: "公開後も安心して使える技術",
     description:
-      "Next.js・Framer Motionを用いた高速でモダンなWeb技術を採用。将来の拡張にも対応できる堅牢な基盤を構築します。",
+      "Next.jsなどのモダンな技術で構築します。表示が速く、後から内容を追加したくなったときにも対応しやすい作りです。",
   },
   {
     Visual: WorkflowVisual,
     area: "c",
-    en: "Seamless Workflow",
-    ja: "シームレスな進行",
+    en: "Security",
+    ja: "セキュリティに配慮した設計",
     description:
-      "企画からデザイン・実装まで、透明性の高いプロジェクト進行。進捗はリアルタイムで共有し、手戻りを最小化します。",
+      "情報処理安全確保支援士・応用情報技術者などの資格に基づき、お問い合わせフォームの取り扱いを含めて安全性に配慮した構成にします。",
   },
   {
     Visual: BarChartVisual,
     area: "d",
-    en: "High Performance",
-    ja: "圧倒的なパフォーマンス",
+    en: "Performance",
+    ja: "表示が速く、検索にも配慮",
     description:
-      "SEO最適化と徹底したパフォーマンス・チューニングでビジネスの成果を最大化。Core Web Vitalsへの対応で検索上位を狙います。",
+      "画像の軽量化や読み込み順の調整で、待たされないサイトにします。検索エンジンが内容を正しく読み取れるよう、見出し構造やメタ情報も整えます。",
   },
 ] as const;
 
@@ -333,12 +336,13 @@ export function BentoFeatures() {
           <AnimatedItem className="mb-12 md:mb-16 flex flex-col gap-4">
             <EyebrowBadge>WHY CHOOSE US</EyebrowBadge>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
-              TREETHが選ばれる
+              TREETHが
               <br />
-              4つの理由
+              大切にしていること
             </h2>
             <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
-              単に「きれいなサイト」を作るのではなく、成果につながるWebサイトを届けることにこだわっています。
+              見た目を整えるだけでなく、公開したあとも使いやすく、
+              訪れた人に内容が伝わるWebサイトを目指しています。
             </p>
           </AnimatedItem>
 
@@ -349,7 +353,7 @@ export function BentoFeatures() {
                 <div className="card-surface p-7 h-full flex flex-col gap-5">
                   <Visual />
                   <div className="flex flex-col gap-2 mt-auto">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
+                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
                       {en}
                     </p>
                     <h3 className="text-lg font-semibold tracking-tight text-zinc-50">

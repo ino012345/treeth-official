@@ -1,14 +1,18 @@
 import { AnimatedSection, AnimatedItem } from "@/components/ui/AnimatedSection";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
 import { Marquee } from "@/components/ui/Marquee";
+import { SITE } from "@/lib/site";
 import { Star, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 // ─── Stats data (rendered as a reverse marquee band) ──────────────────────────
 
+// Only verifiable facts belong here. "Strategic" / "Seamless" were adjectives
+// dressed as statistics and carried no evidential weight — replaced with the
+// delivery count and scope, both checkable. Figures live in src/lib/site.ts.
 const STATS = [
-  { value: "5.0 / 5.0", en: "Client Satisfaction", starred: true },
-  { value: "Strategic", en: "Business-First Design", starred: false },
-  { value: "Seamless", en: "End-to-End Experience", starred: false },
+  { value: SITE.rating, en: SITE.ratingSourceLabel, starred: true },
+  { value: `${SITE.deliveredProjects}件`, en: "これまでの制作・納品実績", starred: false },
+  { value: "企画〜公開", en: "一貫して対応", starred: false },
 ];
 
 // ─── Testimonials data ────────────────────────────────────────────────────────
@@ -40,12 +44,10 @@ export function TestimonialsStats() {
           <AnimatedItem className="mb-12 md:mb-16 flex flex-col gap-4">
             <EyebrowBadge>CLIENT VOICES</EyebrowBadge>
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
-              数字と声が証明する、
-              <br />
-              TREETHの実績
+              ご依頼いただいた方の声
             </h2>
             <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
-              圧倒的なクオリティと戦略的な設計で、クライアントのビジネスに確かな変革をもたらしてきました。
+              実際にご依頼いただいた方からいただいた感想と、これまでの実績をご紹介します。
             </p>
           </AnimatedItem>
         </AnimatedSection>
@@ -63,7 +65,7 @@ export function TestimonialsStats() {
             >
               {value}
             </span>
-            <span className="text-xs md:text-sm font-medium tracking-widest uppercase text-zinc-500 pl-4">
+            <span className="text-xs md:text-sm font-medium tracking-widest uppercase text-zinc-400 pl-4">
               {en}
             </span>
             <span className="text-2xl text-zinc-800 pl-6 select-none" aria-hidden="true">
@@ -111,7 +113,7 @@ export function TestimonialsStats() {
                     </div>
                     <div className="flex flex-col">
                       <p className="text-sm font-semibold text-zinc-100">{name}</p>
-                      <p className="text-[11px] text-zinc-500">{role}</p>
+                      <p className="text-[11px] text-zinc-400">{role}</p>
                     </div>
                   </div>
                 </div>

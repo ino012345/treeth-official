@@ -13,7 +13,7 @@ const SERVICES = [
     ja: "コーポレートサイト制作",
     accent: "var(--accent-primary)",
     description:
-      "モダンなフロントエンド技術による独自実装で、高速・低コスト・高セキュリティを同時に実現。数多くのプロジェクト実績をもとに、集客から問い合わせ獲得まで一貫してサポートします。",
+      "会社やお店の情報を、初めて訪れた人にも分かりやすく伝えるサイトを制作します。表示の速さと運用のしやすさを重視し、公開後の更新もご相談いただけます。",
   },
   {
     Icon: RocketLaunch,
@@ -22,7 +22,7 @@ const SERVICES = [
     ja: "LP制作",
     accent: "var(--accent-secondary)",
     description:
-      "維持費ゼロのモバイル対応LPを、ビジュアルと心理的導線設計で構築。問い合わせ・購買・予約など、各ビジネスゴールに最短で到達するページを提供します。",
+      "サーバー維持費のかからないLPを、スマートフォンでの見やすさを優先して制作します。お問い合わせ・ご予約など、達成したい目的に合わせて構成を設計します。",
   },
   {
     Icon: PenNib,
@@ -31,7 +31,7 @@ const SERVICES = [
     ja: "UI/UXデザイン",
     accent: "var(--accent-tertiary)",
     description:
-      "豊富なWeb制作経験と情報処理安全確保支援士・応用情報技術者の知識を掛け合わせ、美しさとセキュリティを両立したインターフェース設計を行います。",
+      "情報処理安全確保支援士・応用情報技術者の知識をもとに、使いやすさと安全性の両方に配慮した画面設計を行います。既存サイトの改善のご相談も承ります。",
   },
 ];
 
@@ -57,10 +57,12 @@ export function CoreServices() {
       <Marquee duration={28} className="mb-16 md:mb-20 border-y border-zinc-900 py-5">
         {MARQUEE_ITEMS.map((item) => (
           <span key={item} className="flex items-center">
-            <span className="text-2xl md:text-4xl font-semibold tracking-tighter text-zinc-700 px-6">
+            {/* zinc-500 measures 4.21:1 on this background — clears the 3:1
+                bar for large text. zinc-700 (1.94:1) failed. */}
+            <span className="text-2xl md:text-4xl font-semibold tracking-tighter text-zinc-500 px-6">
               {item}
             </span>
-            <span className="text-2xl md:text-4xl text-zinc-800 select-none" aria-hidden="true">
+            <span className="text-2xl md:text-4xl text-zinc-600 select-none" aria-hidden="true">
               ·
             </span>
           </span>
@@ -124,7 +126,7 @@ export function CoreServices() {
 
                   {/* Text content */}
                   <div className="flex flex-col gap-2 flex-1 relative z-10">
-                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500">
+                    <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400">
                       {en}
                     </p>
                     <h3 className="text-lg font-semibold tracking-tight text-zinc-50">

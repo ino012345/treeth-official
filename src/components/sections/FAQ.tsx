@@ -33,6 +33,18 @@ const FAQ_ITEMS = [
 
 const SPRING = { type: "spring" as const, stiffness: 200, damping: 25 };
 
+// FAQPage structured data, generated from the same source of truth that renders
+// on screen — so the markup can never drift from the visible answers.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function FAQ() {
@@ -40,6 +52,11 @@ export function FAQ() {
 
   return (
     <section id="faq" className="px-6 py-24 md:px-8 md:py-32 bg-[var(--background)]">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="mx-auto max-w-[1400px]">
         <AnimatedSection>
 

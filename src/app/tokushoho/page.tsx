@@ -55,7 +55,7 @@ export default function TokushohoPage() {
         <h1 className="mt-4 mb-2 text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50">
           特定商取引法に基づく表記
         </h1>
-        <p className="mb-12 text-sm text-zinc-500">最終更新日：2026年7月25日</p>
+        <p className="mb-12 text-sm text-zinc-400">最終更新日：2026年7月25日</p>
 
         <div className="card-surface divide-y divide-zinc-800 overflow-hidden">
           {ROWS.map(({ label, value }) => (
@@ -75,7 +75,7 @@ export default function TokushohoPage() {
           </a>
           <a
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-300 transition-colors"
           >
             ← トップへ戻る
           </a>

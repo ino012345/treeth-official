@@ -57,7 +57,7 @@ export default function PrivacyPolicyPage() {
         <h1 className="mt-4 mb-2 text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50">
           プライバシーポリシー
         </h1>
-        <p className="mb-12 text-sm text-zinc-500">最終更新日：2026年7月25日</p>
+        <p className="mb-12 text-sm text-zinc-400">最終更新日：2026年7月25日</p>
 
         <div className="flex flex-col gap-10">
           {SECTIONS.map(({ heading, body }) => (

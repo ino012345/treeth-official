@@ -1,6 +1,9 @@
 "use client";
 
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion, HTMLMotionProps, useReducedMotion } from "framer-motion";
+
+// Expo-out easing shared by every scroll-reveal on the site
+export const EASE_EXPO_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const containerVariants = {
   hidden: {},
@@ -9,9 +12,9 @@ const containerVariants = {
   },
 };
 
-// Expo-out easing shared by every scroll-reveal on the site
-export const EASE_EXPO_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
+// Level 2 motion (brand). Under prefers-reduced-motion we drop the travel and
+// keep a short fade, so content still reads as "arriving" without the vestibular
+// trigger of scroll-linked movement (WCAG 2.2 SC 2.3.3).
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -19,6 +22,11 @@ const itemVariants = {
     y: 0,
     transition: { duration: 0.7, ease: EASE_EXPO_OUT },
   },
+};
+
+const itemVariantsReduced = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.2 } },
 };
 
 interface AnimatedSectionProps extends HTMLMotionProps<"div"> {
@@ -47,8 +55,13 @@ interface AnimatedItemProps extends HTMLMotionProps<"div"> {
 }
 
 export function AnimatedItem({ children, className, ...props }: AnimatedItemProps) {
+  const reduceMotion = useReducedMotion();
   return (
-    <motion.div variants={itemVariants} className={className} {...props}>
+    <motion.div
+      variants={reduceMotion ? itemVariantsReduced : itemVariants}
+      className={className}
+      {...props}
+    >
       {children}
     </motion.div>
   );

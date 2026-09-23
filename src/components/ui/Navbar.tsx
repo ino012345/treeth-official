@@ -64,10 +64,11 @@ export function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Before scroll: white text inverts against the hero canvas via blend mode.
-  // The blend must live on an element without a background, so it sits on the
-  // inner row, not the glassmorphic header itself.
-  const blend = !scrolled && !menuOpen ? "mix-blend-difference" : "";
+  // mix-blend-difference was removed here: against the old scroll canvas its
+  // contrast was unpredictable (audit §B-2), and the blend layer re-composited
+  // after hydration, registering a late LCP candidate at ~3.8s on mobile. The
+  // hero is now a controlled dark image, so plain white text is both legible
+  // and cheap to paint.
 
   return (
     <header
@@ -79,7 +80,7 @@ export function Navbar() {
       ].join(" ")}
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-8">
-        <div className={`relative flex items-center justify-between h-16 ${blend}`}>
+        <div className="relative flex items-center justify-between h-16">
 
           {/* Logo — tight tracking + gradient clip */}
           <a

@@ -85,12 +85,19 @@ export function FinalCTA() {
             {/* ── Right: contact form ──────────────────────────────────── */}
             <AnimatedItem className="w-full lg:max-w-md">
               <div className="bg-gradient-to-br from-zinc-900/60 to-indigo-950/30 backdrop-blur-xl border border-indigo-900/40 rounded-[20px] p-8">
-                <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-500 mb-1">
+                <p className="text-[10px] font-medium tracking-widest uppercase text-zinc-400 mb-1">
                   Get in Touch
                 </p>
-                <h3 className="text-base font-semibold text-white mb-6">
+                <h3 className="text-base font-semibold text-white mb-2">
                   お問い合わせ
                 </h3>
+                {/* Removes the most common reason people close a contact form:
+                    not knowing whether their request is "ready" enough to send.
+                    Deliberately promises nothing about timing or price. */}
+                <p className="mb-6 text-sm leading-relaxed text-zinc-300">
+                  まだ内容が固まっていなくても問題ありません。
+                  「こんなサイトを作りたい」程度からお気軽にご相談ください。
+                </p>
                 <ContactForm />
               </div>
             </AnimatedItem>

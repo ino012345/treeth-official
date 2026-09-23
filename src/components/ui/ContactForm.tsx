@@ -66,7 +66,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-1.5">
         <label
           htmlFor="cf-name"
-          className="text-[10px] font-medium tracking-widest uppercase text-zinc-500"
+          className="text-[10px] font-medium tracking-widest uppercase text-zinc-400"
         >
           お名前 <span className="text-indigo-400">*</span>
         </label>
@@ -85,7 +85,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-1.5">
         <label
           htmlFor="cf-email"
-          className="text-[10px] font-medium tracking-widest uppercase text-zinc-500"
+          className="text-[10px] font-medium tracking-widest uppercase text-zinc-400"
         >
           メールアドレス <span className="text-indigo-400">*</span>
         </label>
@@ -104,7 +104,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-1.5">
         <label
           htmlFor="cf-message"
-          className="text-[10px] font-medium tracking-widest uppercase text-zinc-500"
+          className="text-[10px] font-medium tracking-widest uppercase text-zinc-400"
         >
           お問い合わせ内容 <span className="text-indigo-400">*</span>
         </label>

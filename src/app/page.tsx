@@ -9,7 +9,7 @@ import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function Home() {
   return (
-    <main>
+    <main id="main">
       <Hero />
       <CoreServices />
       <ProjectsShowcase />

@@ -10,7 +10,9 @@
   --color-accent-tertiary: var(--accent-tertiary);
   --color-accent-warm: var(--accent-warm);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* System monospace — see the note in layout.tsx on dropping GeistMono */
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
 }
 
 :root {
@@ -35,12 +37,49 @@ html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
 }
 
+/* Anchor targets sit under the 64px fixed navbar without this, hiding the
+   section heading the visitor just clicked towards. */
+:target,
+#services,
+#projects,
+#faq,
+#contact,
+#main {
+  scroll-margin-top: 5.5rem;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Visible focus for keyboard users on every interactive element
+   (WCAG 2.2 SC 2.4.11 Focus Appearance). */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip link — hidden until focused (WCAG 2.2 SC 2.4.1 Bypass Blocks) */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: top 150ms ease;
+}
+.skip-link:focus {
+  top: 1rem;
 }
 
 /* ─── Utility classes ─────────────────────────────────── */
@@ -118,11 +157,55 @@ body {
 .cpu-dot-7 { animation-delay: 0.88s; }
 .cpu-dot-8 { animation-delay: 1.23s; }
 
-/* ─── Scroll-animation section responsive heights ─────── */
+/* ─── Hero ambient motion (Level 3 — decorative) ───────── */
+/* Very slow drift so the hero still feels alive without consuming any
+   scroll distance. Independent of scroll position by design. */
 
-@media (max-width: 1024px) {
-  .scroll-animation { height: 350vh !important; }
+@keyframes hero-ambient {
+  0%   { transform: scale(1)    translate3d(0, 0, 0); }
+  100% { transform: scale(1.06) translate3d(0, -1.2%, 0); }
 }
-@media (max-width: 768px) {
-  .scroll-animation { height: 300vh !important; }
+
+.hero-ambient {
+  animation: hero-ambient 40s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Hero entrance (Level 2 — brand).
+   Deliberately CSS, not JS: a Framer Motion entrance holds the element at
+   opacity 0 until React hydrates, which made the hero paragraph the LCP
+   element with ~1.1s of render delay. CSS animations start at first paint. */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-rise {
+  animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Reduced motion (WCAG 2.2 SC 2.3.3) ───────────────── */
+/* Level 3 (decorative) and Level 2 (brand) motion stop entirely.
+   Level 1 (state feedback: FAQ open/close, form states) is kept but
+   shortened, so interactions still read as cause-and-effect. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.12s !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-ambient {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .card-surface:hover,
+  .card-interactive:hover {
+    transform: none !important;
+  }
 }
