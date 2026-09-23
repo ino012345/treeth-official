@@ -14,8 +14,12 @@ const FAQ_ITEMS = [
     a: "はい、もちろんです！専門知識は一切不要です。簡単なヒアリングシートへのご回答と、掲載したい文章・画像をご用意いただくだけで、面倒なサーバー設定やネット上への公開作業もすべてこちらで代行いたします。安心してすべてお任せください。",
   },
   {
-    q: "納品後、毎月の「維持費」などは本当にかからないのでしょうか？",
-    a: "はい、最新の高性能なクラウドサーバー（Vercel等）を使用するため、毎月のサーバー代やシステムの保守費用は「永久に0円」です。（※ご自身の会社名が入ったオリジナルURL「〇〇.com」等の取得をご希望される場合のみ、ドメイン取得・更新費用として年間1,500円〜4,000円程度が別途発生いたします。）",
+    q: "制作料金はいくらくらいですか？",
+    a: "サイトの規模やページ数、必要な機能によって変わるため、一律の料金表ではなく個別にお見積もりをご提示しています。ご要望とあわせて必要な構成をご提案し、そのうえで金額をご案内しますので、ご予算に合わせた調整もご相談いただけます。ご相談・お見積もりは無料です。まずはお気軽にお問い合わせください。",
+  },
+  {
+    q: "納品後、毎月の維持費はかかりますか？",
+    a: "構成によって異なります。Vercelなどのクラウドサーバーを利用する構成であれば、月々のサーバー費用を抑えることができ、プランや利用状況によっては費用がかからない範囲で運用できる場合もあります。独自ドメイン（〇〇.com等）の取得をご希望の場合は、ドメインの取得・更新費用が別途必要です。ご提案時に、想定される費用をあわせてご説明します。",
   },
   {
     q: "今のサイトはWordPressで作られているのですが、TREETHにリニューアルを依頼すると何が変わりますか？",
@@ -33,17 +37,10 @@ const FAQ_ITEMS = [
 
 const SPRING = { type: "spring" as const, stiffness: 200, damping: 25 };
 
-// FAQPage structured data, generated from the same source of truth that renders
-// on screen — so the markup can never drift from the visible answers.
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ_ITEMS.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
-};
+// No FAQPage structured data here on purpose. Google retired FAQ rich results
+// in May 2026, so the markup no longer earns search presence — it would only be
+// an extra surface that can drift out of sync with the visible answers. The FAQ
+// stays as user-facing content, which is what it was always for.
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -52,11 +49,6 @@ export function FAQ() {
 
   return (
     <section id="faq" className="px-6 py-24 md:px-8 md:py-32 bg-[var(--background)]">
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
       <div className="mx-auto max-w-[1400px]">
         <AnimatedSection>
 

@@ -10,6 +10,7 @@ import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE } from "@/lib/site";
 
 // Keywords appear because they describe what is actually offered — the terms a
@@ -20,6 +21,15 @@ export const metadata: Metadata = {
   description:
     "店舗・企業向けのコーポレートサイト制作、ホームページ制作、LP制作。企画からデザイン・実装・公開まで一貫して対応します。Web制作が初めての方もご相談いただけます。",
   alternates: { canonical: "/" },
+  // Search Console / Bing can also be verified by DNS TXT (preferred — it
+  // covers the whole domain). These env vars exist so the HTML-tag method is
+  // available without a code change; unset, they simply emit nothing.
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
   openGraph: {
     type: "website",
     locale: "ja_JP",
@@ -81,6 +91,12 @@ export default function RootLayout({
           {children}
           <Footer />
         </SmoothScrollProvider>
+        {/* Vercel Web Analytics — cookieless, no cross-site tracking, and no
+            custom events: page views and referrers only. The project is on the
+            Hobby plan, where custom events are unavailable anyway, so nothing
+            about a form submission is reported. Self-disables outside
+            production. See /privacy for the visitor-facing description. */}
+        <Analytics />
       </body>
     </html>
   );

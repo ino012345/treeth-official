@@ -75,9 +75,15 @@ export function FinalCTA() {
               <div className="flex flex-col gap-4">
                 <EyebrowBadge>CONTACT</EyebrowBadge>
                 <SplitHeading />
+                {/* Rewritten from "圧倒的なパフォーマンス…次のステージへ" to the
+                    same calm, plain-language tone as the Hero and Process
+                    sections. Complements the form's microcopy rather than
+                    repeating it: this line covers what happens after you send,
+                    the microcopy covers whether you're ready to send. */}
                 <p className="text-base text-white/80 leading-relaxed max-w-[42ch]">
-                  圧倒的なパフォーマンスと洗練されたデザインで、あなたのビジネスを次のステージへ。
-                  プロジェクトのご相談・無料お見積もりはこちらからどうぞ。
+                  Webサイトについて、まだ具体的に決まっていなくても問題ありません。
+                  目的やご希望を伺いながら、必要な構成をご提案します。
+                  ご相談・お見積もりは無料です。
                 </p>
               </div>
             </AnimatedItem>

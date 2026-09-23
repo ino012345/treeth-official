@@ -6,13 +6,13 @@ import { Star, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 // ─── Stats data (rendered as a reverse marquee band) ──────────────────────────
 
-// Only verifiable facts belong here. "Strategic" / "Seamless" were adjectives
-// dressed as statistics and carried no evidential weight — replaced with the
-// delivery count and scope, both checkable. Figures live in src/lib/site.ts.
+// Only verifiable facts belong here, each labelled with what it actually
+// counts — web production work and total Coconala sales are different numbers.
+// Figures live in src/lib/site.ts.
 const STATS = [
-  { value: SITE.rating, en: SITE.ratingSourceLabel, starred: true },
-  { value: `${SITE.deliveredProjects}件`, en: "これまでの制作・納品実績", starred: false },
-  { value: "企画〜公開", en: "一貫して対応", starred: false },
+  { value: SITE.rating.display, en: SITE.rating.label, starred: true },
+  { value: SITE.webProjects.display, en: SITE.webProjects.label, starred: false },
+  { value: SITE.coconalaSales.display, en: SITE.coconalaSales.label, starred: false },
 ];
 
 // ─── Testimonials data ────────────────────────────────────────────────────────

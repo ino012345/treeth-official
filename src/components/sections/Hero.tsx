@@ -89,28 +89,32 @@ export function Hero() {
             まだ内容が固まっていなくても大丈夫です。
           </p>
 
-          {/* ── Trust row — every figure is verified, see src/lib/site.ts ───── */}
+          {/* ── Trust row — every figure is verified, see src/lib/site.ts ─────
+              Web production work and total Coconala sales are two different
+              counts and are labelled separately, so 45 cannot be misread as
+              "45 websites built". */}
           <dl
             className="hero-rise mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pt-6"
             style={{ animationDelay: "200ms" }}
           >
             <div className="flex flex-col gap-0.5">
-              <dt className="text-xs text-zinc-300">これまでの制作・納品実績</dt>
+              <dt className="text-xs text-zinc-300">{SITE.webProjects.label}</dt>
               <dd className="text-2xl font-semibold tracking-tight text-white tabular-nums">
-                {SITE.deliveredProjects}
-                <span className="ml-1 text-base font-normal text-zinc-200">件</span>
+                {SITE.webProjects.display}
               </dd>
             </div>
             <div className="flex flex-col gap-0.5">
-              <dt className="text-xs text-zinc-300">{SITE.ratingSourceLabel}</dt>
+              <dt className="text-xs text-zinc-300">{SITE.coconalaSales.label}</dt>
+              <dd className="text-2xl font-semibold tracking-tight text-white tabular-nums">
+                {SITE.coconalaSales.display}
+              </dd>
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <dt className="text-xs text-zinc-300">{SITE.rating.label}</dt>
               <dd className="flex items-center gap-1.5 text-2xl font-semibold tracking-tight text-white tabular-nums">
                 <Star size={18} weight="fill" className="text-amber-400" />
-                {SITE.rating}
+                {SITE.rating.display}
               </dd>
-            </div>
-            <div className="flex flex-col gap-0.5">
-              <dt className="text-xs text-zinc-300">対応範囲</dt>
-              <dd className="text-sm font-medium text-white">企画・デザイン・実装・公開</dd>
             </div>
           </dl>
         </div>
