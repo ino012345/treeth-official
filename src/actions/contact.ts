@@ -16,6 +16,19 @@ const resend = new Resend(process.env.RESEND_API_KEY);
  */
 const FROM = process.env.RESEND_FROM_EMAIL ?? "TREETH <contact@treeth.net>";
 
+/**
+ * Where notifications land. contact@treeth.net is an iCloud Mail custom-domain
+ * address, so From and To are the same mailbox — replying from there keeps the
+ * treeth.net identity, and the visitor's address in Reply-To becomes the
+ * recipient of that reply.
+ *
+ * Read from CONTACT_TO_EMAIL only. There is deliberately no fallback: an older
+ * CONTACT_EMAIL variable used to hold a personal Gmail address, and silently
+ * falling back to it would keep routing mail somewhere this change is meant to
+ * move it away from. Missing config fails closed instead.
+ */
+const TO = process.env.CONTACT_TO_EMAIL;
+
 export interface ActionResult {
   success: boolean;
   error?: string;
@@ -57,17 +70,16 @@ export async function sendContactEmail(
     return { success: false, error: "お問い合わせ内容は5000文字以内でご入力ください。" };
   }
 
-  const to = process.env.CONTACT_EMAIL;
-  if (!to) {
+  if (!TO) {
     // Misconfiguration, not a visitor mistake. Log the fact without any form
     // data, and show the visitor the same generic message.
-    console.error("[contact] CONTACT_EMAIL is not configured; cannot deliver.");
+    console.error("[contact] CONTACT_TO_EMAIL is not configured; cannot deliver.");
     return { success: false, error: GENERIC_ERROR };
   }
 
   const { error } = await resend.emails.send({
     from: FROM,
-    to: [to],
+    to: [TO],
     // Replying to the notification reaches the person who filled in the form.
     replyTo: email,
     subject: `【treeth】${sanitizeForHeader(name)} 様からのお問い合わせ`,
