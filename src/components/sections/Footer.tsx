@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const NAV_SECTIONS: {
   title: string;
   links: { label: string; href: string; external?: boolean }[];
@@ -77,12 +79,17 @@ export function Footer() {
             © {new Date().getFullYear()} treeth. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="/privacy" className="text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors">
+            {/* Route links, not in-page anchors — these need next/link for
+                client-side navigation. ESLint's no-html-link-for-pages did not
+                flag them (its page detection misses App Router subroutes), so
+                they are converted by hand. The nav lists above stay as plain
+                anchors on purpose: they are #hash links handled by Lenis. */}
+            <Link href="/privacy" className="text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors">
               プライバシーポリシー
-            </a>
-            <a href="/tokushoho" className="text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors">
+            </Link>
+            <Link href="/tokushoho" className="text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors">
               特定商取引法に基づく表記
-            </a>
+            </Link>
           </div>
         </div>
 

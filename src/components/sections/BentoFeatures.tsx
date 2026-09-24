@@ -39,9 +39,14 @@ function useTypewriter(phrases: readonly string[]) {
         30
       );
     } else {
-      // Advance to next phrase
-      setPhraseIdx((prev) => (prev + 1) % phrases.length);
-      setDeleting(false);
+      // Advance to next phrase. Routed through a timer like every other branch:
+      // setting state synchronously in the effect body triggers a cascading
+      // render, and the pause doubles as a beat between phrases so the next one
+      // does not start the instant the last character is deleted.
+      timer = setTimeout(() => {
+        setPhraseIdx((prev) => (prev + 1) % phrases.length);
+        setDeleting(false);
+      }, 400);
     }
 
     return () => clearTimeout(timer);

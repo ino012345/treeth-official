@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
 
 export const metadata: Metadata = {
@@ -67,18 +68,18 @@ export default function TokushohoPage() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-6">
-          <a
+          <Link
             href="/#contact"
             className="inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
           >
             お問い合わせフォームへ →
-          </a>
-          <a
+          </Link>
+          <Link
             href="/"
             className="inline-flex items-center gap-1.5 text-sm text-zinc-400 hover:text-zinc-300 transition-colors"
           >
             ← トップへ戻る
-          </a>
+          </Link>
         </div>
       </div>
     </main>

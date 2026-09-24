@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { List, X } from "@phosphor-icons/react";
 
@@ -83,7 +84,7 @@ export function Navbar() {
         <div className="relative flex items-center justify-between h-16">
 
           {/* Logo — tight tracking + gradient clip */}
-          <a
+          <Link
             href="/"
             className="text-lg font-black uppercase select-none"
             style={{ letterSpacing: "-0.08em" }}
@@ -91,7 +92,7 @@ export function Navbar() {
             <span className={scrolled ? "text-gradient-accent" : "text-white"}>
               TREETH
             </span>
-          </a>
+          </Link>
 
           {/* Desktop nav links — absolutely centered, magnetic */}
           <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-8">
