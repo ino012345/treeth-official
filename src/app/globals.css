@@ -82,6 +82,18 @@ body {
   top: 1rem;
 }
 
+/* ─── Japanese line breaking ───────────────────────────── */
+/* Japanese has no spaces, so browsers break lines at arbitrary characters —
+   often mid-phrase. `auto-phrase` breaks at natural phrase boundaries instead
+   (Chrome 119+, Safari; it needs lang="ja", which is set on <html>).
+   Unsupported browsers ignore it and fall back to the default behaviour, so
+   this is a safe progressive enhancement.
+   `text-wrap: pretty` additionally discourages a lone word on the last line. */
+.jp-text {
+  word-break: auto-phrase;
+  text-wrap: pretty;
+}
+
 /* ─── Utility classes ─────────────────────────────────── */
 
 .card-surface {

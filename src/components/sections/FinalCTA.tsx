@@ -80,10 +80,10 @@ export function FinalCTA() {
                     sections. Complements the form's microcopy rather than
                     repeating it: this line covers what happens after you send,
                     the microcopy covers whether you're ready to send. */}
-                <p className="text-base text-white/80 leading-relaxed max-w-[42ch]">
-                  Webサイトについて、まだ具体的に決まっていなくても問題ありません。
-                  目的やご希望を伺いながら、必要な構成をご提案します。
-                  ご相談・お見積もりは無料です。
+                <p className="jp-text text-base text-white/80 leading-relaxed max-w-[42ch]">
+                  {"Webサイトについて、まだ具体的に決まっていなくても問題ありません。" +
+                    "目的やご希望を伺いながら、必要な構成をご提案します。" +
+                    "ご相談・お見積もりは無料です。"}
                 </p>
               </div>
             </AnimatedItem>

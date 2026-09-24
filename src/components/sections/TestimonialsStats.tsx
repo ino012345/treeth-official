@@ -1,19 +1,6 @@
 import { AnimatedSection, AnimatedItem } from "@/components/ui/AnimatedSection";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
-import { Marquee } from "@/components/ui/Marquee";
-import { SITE } from "@/lib/site";
 import { Star, ArrowRight } from "@phosphor-icons/react/dist/ssr";
-
-// ─── Stats data (rendered as a reverse marquee band) ──────────────────────────
-
-// Only verifiable facts belong here, each labelled with what it actually
-// counts — web production work and total Coconala sales are different numbers.
-// Figures live in src/lib/site.ts.
-const STATS = [
-  { value: SITE.rating.display, en: SITE.rating.label, starred: true },
-  { value: SITE.webProjects.display, en: SITE.webProjects.label, starred: false },
-  { value: SITE.coconalaSales.display, en: SITE.coconalaSales.label, starred: false },
-];
 
 // ─── Testimonials data ────────────────────────────────────────────────────────
 
@@ -46,37 +33,19 @@ export function TestimonialsStats() {
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50 max-w-[22ch] leading-[1.1]">
               ご依頼いただいた方の声
             </h2>
-            <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
-              実際にご依頼いただいた方からいただいた感想と、これまでの実績をご紹介します。
+            {/* Reworded: the old line promised "これまでの実績" alongside the
+                quotes, which referred to the stats band that used to sit below
+                this header. */}
+            <p className="jp-text text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
+              実際にご依頼いただいた方からいただいた感想をご紹介します。
             </p>
           </AnimatedItem>
-        </AnimatedSection>
-      </div>
 
-      {/* ── Stats band: reverse-direction marquee (full-bleed) ──────────── */}
-      <Marquee reverse duration={26} className="mb-16 md:mb-20 border-y border-zinc-900 py-6">
-        {STATS.map(({ value, en, starred }) => (
-          <span key={en} className="flex items-center">
-            {starred && (
-              <Star size={22} weight="fill" className="text-amber-400 ml-6 mr-3 shrink-0" />
-            )}
-            <span
-              className={`text-2xl md:text-3xl font-bold tracking-tighter text-gradient-accent ${starred ? "" : "pl-6"}`}
-            >
-              {value}
-            </span>
-            <span className="text-xs md:text-sm font-medium tracking-widest uppercase text-zinc-400 pl-4">
-              {en}
-            </span>
-            <span className="text-2xl text-zinc-800 pl-6 select-none" aria-hidden="true">
-              ·
-            </span>
-          </span>
-        ))}
-      </Marquee>
-
-      <div className="mx-auto max-w-[1400px] px-6 md:px-8">
-        <AnimatedSection>
+          {/* The marketplace stats marquee that sat here was removed for the
+              same reason as the hero's: this section is about what clients
+              said, and a scrolling band of Coconala numbers competed with the
+              quotes rather than supporting them. The profile link at the foot
+              of the section still leads to those figures. */}
 
           {/* ── Testimonials row ─────────────────────────────────────────── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

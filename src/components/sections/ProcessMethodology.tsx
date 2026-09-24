@@ -73,9 +73,9 @@ export function ProcessMethodology() {
             <h2 className="max-w-[24ch] text-3xl font-semibold leading-[1.1] tracking-tighter text-zinc-50 md:text-5xl">
               ご相談から公開までの流れ
             </h2>
-            <p className="max-w-[48ch] text-lg leading-relaxed text-zinc-300">
-              お問い合わせをいただいた後、どのように進むのかをご説明します。
-              初めてWebサイトを作る方にも分かるよう、専門的な作業はこちらで対応します。
+            <p className="jp-text max-w-[48ch] text-lg leading-relaxed text-zinc-300">
+              {"お問い合わせをいただいた後、どのように進むのかをご説明します。" +
+                "初めてWebサイトを作る方にも分かるよう、専門的な作業はこちらで対応します。"}
             </p>
           </AnimatedItem>
 

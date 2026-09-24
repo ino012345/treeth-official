@@ -40,9 +40,9 @@ export function Footer() {
             {/* Describes the work rather than the size of the business: the
                 site previously said "Web制作チーム" while the legal notice says
                 個人事業. See docs/uiux-audit.md §G-2 (Decision Required). */}
-            <p className="text-sm text-zinc-400 leading-relaxed">
-              店舗・企業向けのコーポレートサイト・LP制作を行っています。
-              企画からデザイン・実装・公開まで一貫して対応します。
+            <p className="jp-text text-sm text-zinc-400 leading-relaxed">
+              {"店舗・企業向けのコーポレートサイト・LP制作を行っています。" +
+                "企画からデザイン・実装・公開まで一貫して対応します。"}
             </p>
           </div>
 

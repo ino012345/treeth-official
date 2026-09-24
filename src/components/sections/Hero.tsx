@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { ArrowRight, Star } from "@phosphor-icons/react/dist/ssr";
-import { SITE } from "@/lib/site";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 // Server component on purpose: this section ships no JavaScript at all.
@@ -58,9 +57,12 @@ export function Hero() {
             ホームページ制作
           </h1>
 
-          <p className="mt-6 max-w-[36rem] text-base leading-relaxed text-zinc-200 md:text-lg">
-            成果につながるコーポレートサイト・LPを、企画からデザイン・実装・公開まで
-            一貫して制作します。Web制作が初めての方でも、ご相談いただけます。
+          {/* Written as a concatenated string, not as wrapped JSX text: JSX
+              collapses a source newline into a space, which puts a stray gap in
+              the middle of a Japanese sentence (…公開まで 一貫して…). */}
+          <p className="jp-text mt-6 max-w-[36rem] text-base leading-relaxed text-zinc-200 md:text-lg">
+            {"成果につながるコーポレートサイト・LPを、企画からデザイン・実装・公開まで" +
+              "一貫して制作します。Web制作が初めての方でも、ご相談いただけます。"}
           </p>
 
           {/* ── CTAs: primary action first, portfolio as the low-commitment path ── */}
@@ -89,34 +91,13 @@ export function Hero() {
             まだ内容が固まっていなくても大丈夫です。
           </p>
 
-          {/* ── Trust row — every figure is verified, see src/lib/site.ts ─────
-              Web production work and total Coconala sales are two different
-              counts and are labelled separately, so 45 cannot be misread as
-              "45 websites built". */}
-          <dl
-            className="hero-rise mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/15 pt-6"
-            style={{ animationDelay: "200ms" }}
-          >
-            <div className="flex flex-col gap-0.5">
-              <dt className="text-xs text-zinc-300">{SITE.webProjects.label}</dt>
-              <dd className="text-2xl font-semibold tracking-tight text-white tabular-nums">
-                {SITE.webProjects.display}
-              </dd>
-            </div>
-            <div className="flex flex-col gap-0.5">
-              <dt className="text-xs text-zinc-300">{SITE.coconalaSales.label}</dt>
-              <dd className="text-2xl font-semibold tracking-tight text-white tabular-nums">
-                {SITE.coconalaSales.display}
-              </dd>
-            </div>
-            <div className="flex flex-col gap-0.5">
-              <dt className="text-xs text-zinc-300">{SITE.rating.label}</dt>
-              <dd className="flex items-center gap-1.5 text-2xl font-semibold tracking-tight text-white tabular-nums">
-                <Star size={18} weight="fill" className="text-amber-400" />
-                {SITE.rating.display}
-              </dd>
-            </div>
-          </dl>
+          {/* The marketplace metrics that used to sit here (ココナラ販売実績 /
+              評価 / Web制作実績) were removed: they read as freelance-marketplace
+              seller stats rather than studio credentials, and the same figures
+              are already one click away on the linked Coconala profile. The
+              "制作実績を見る" CTA above is the stronger proof path — real work
+              beats a number. Figures remain in src/lib/site.ts for the
+              structured data and any future use. */}
         </div>
       </div>
     </section>

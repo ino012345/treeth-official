@@ -340,9 +340,9 @@ export function BentoFeatures() {
               <br />
               大切にしていること
             </h2>
-            <p className="text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
-              見た目を整えるだけでなく、公開したあとも使いやすく、
-              訪れた人に内容が伝わるWebサイトを目指しています。
+            <p className="jp-text text-zinc-300 text-lg leading-relaxed max-w-[48ch]">
+              {"見た目を整えるだけでなく、公開したあとも使いやすく、" +
+                "訪れた人に内容が伝わるWebサイトを目指しています。"}
             </p>
           </AnimatedItem>
 
