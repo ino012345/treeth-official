@@ -1,6 +1,8 @@
 "use server";
 
+import { headers } from "next/headers";
 import { Resend } from "resend";
+import { screen, rateLimit } from "@/lib/spam";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -37,6 +39,28 @@ export interface ActionResult {
 /** Generic message shown to visitors. Never surfaces internal detail. */
 const GENERIC_ERROR = "送信に失敗しました。しばらくしてから再度お試しください。";
 
+/**
+ * Shown when screening rejects a submission. Deliberately does not say what
+ * matched — explaining the rule would let a sender tune around it — but it does
+ * say the message did not go through, so a rare false positive is not left
+ * believing it sent.
+ */
+const SCREENED_ERROR =
+  "送信内容を確認できませんでした。お手数ですが、内容をご確認のうえ再度お試しください。";
+
+const RATE_LIMITED_ERROR =
+  "送信回数が上限に達しました。しばらく時間をおいてから再度お試しください。";
+
+/** Caller IP as seen through Vercel's proxy, for per-source throttling. */
+async function clientIp(): Promise<string> {
+  const h = await headers();
+  return (
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    h.get("x-real-ip")?.trim() ||
+    "unknown"
+  );
+}
+
 // Subject lines carry the visitor's name. Strip CR/LF so a crafted name cannot
 // attempt header injection, and cap the length so the header stays sane.
 function sanitizeForHeader(value: string): string {
@@ -52,6 +76,8 @@ export async function sendContactEmail(
   const name    = (formData.get("name")    as string | null)?.trim() ?? "";
   const email   = (formData.get("email")   as string | null)?.trim() ?? "";
   const message = (formData.get("message") as string | null)?.trim() ?? "";
+  const honeypot = (formData.get("website") as string | null) ?? "";
+  const startedAtRaw = (formData.get("startedAt") as string | null) ?? "";
 
   if (!name || !email || !message) {
     return { success: false, error: "すべての項目を入力してください。" };
@@ -68,6 +94,41 @@ export async function sendContactEmail(
 
   if (message.length > LIMITS.message) {
     return { success: false, error: "お問い合わせ内容は5000文字以内でご入力ください。" };
+  }
+
+  // ── Spam screening ─────────────────────────────────────────────────────────
+  // Runs after shape validation (so malformed input is reported honestly) and
+  // before anything is sent (so screened submissions never touch the send
+  // quota). Reasons are logged without any submitted content.
+
+  const parsedStart = Number.parseInt(startedAtRaw, 10);
+  const elapsedMs = Number.isFinite(parsedStart) ? Date.now() - parsedStart : null;
+
+  const verdict = screen({
+    name,
+    email,
+    message,
+    honeypot,
+    elapsedMs: elapsedMs !== null && elapsedMs >= 0 ? elapsedMs : null,
+  });
+
+  if (verdict.kind === "silent-drop") {
+    // Report success without sending. A bot that is told it failed retries or
+    // mutates; one that is told it worked moves on.
+    console.warn(`[contact] dropped: ${verdict.reason}`);
+    return { success: true };
+  }
+
+  if (verdict.kind === "reject") {
+    console.warn(`[contact] rejected: ${verdict.reason}`);
+    return { success: false, error: SCREENED_ERROR };
+  }
+
+  // Throttle per source. Placed after screening so obvious bot traffic does not
+  // consume a legitimate sender's allowance from a shared or NAT'd address.
+  if (!rateLimit(await clientIp()).allowed) {
+    console.warn("[contact] rate limited");
+    return { success: false, error: RATE_LIMITED_ERROR };
   }
 
   if (!TO) {

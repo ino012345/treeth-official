@@ -11,7 +11,7 @@
 
 | レイヤー | パッケージ | バージョン |
 |---------|-----------|-----------|
-| Framework | next | 16.2.2 |
+| Framework | next | 16.4.0 |
 | UI | react | 19.2.4 |
 | Styling | tailwindcss | v4 |
 | Animation | framer-motion | 12.38.0 |

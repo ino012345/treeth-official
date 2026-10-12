@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { sendContactEmail } from "@/actions/contact";
 import type { ActionResult } from "@/actions/contact";
@@ -45,6 +45,19 @@ const inputClass =
 export function ContactForm() {
   const [state, action] = useActionState(sendContactEmail, initialState);
 
+  // Stamped on mount, submitted alongside the form so the action can tell how
+  // long the visitor took.
+  //
+  // Written straight to the input through a ref rather than held in state: a
+  // Date.now() during render would differ between the server HTML and the first
+  // client render and trip a hydration mismatch, while setting state from an
+  // effect just to feed a hidden field would cascade a second render for a
+  // value nothing else reads. Filling the DOM node is what effects are for.
+  const startedAtRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (startedAtRef.current) startedAtRef.current.value = String(Date.now());
+  }, []);
+
   if (state.success) {
     return (
       <div className="text-center py-6">
@@ -62,6 +75,25 @@ export function ContactForm() {
 
   return (
     <form action={action} className="flex flex-col gap-4">
+      {/* ── Bot traps ──────────────────────────────────────────────────────
+          "website" is a honeypot: invitingly named for a bot, unreachable for
+          a person. It is positioned off-screen rather than display:none, since
+          bots increasingly skip hidden fields, and taken out of the tab order
+          and the accessibility tree so keyboard and screen-reader users never
+          land on it. Any value means the submission was automated. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="cf-website">Website (leave blank)</label>
+        <input
+          id="cf-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          defaultValue=""
+        />
+      </div>
+      <input ref={startedAtRef} type="hidden" name="startedAt" defaultValue="" />
+
       {/* Name */}
       <div className="flex flex-col gap-1.5">
         <label
