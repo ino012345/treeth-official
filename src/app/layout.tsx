@@ -12,6 +12,7 @@ import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE } from "@/lib/site";
+import { OG_IMAGE } from "@/lib/metadata";
 
 // Keywords appear because they describe what is actually offered — the terms a
 // shop owner would search. No stuffing, no ranking claims.
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     title: "TREETH — 店舗・企業のホームページ制作 / コーポレートサイト・LP制作",
     description:
       "コーポレートサイト・LPを、企画からデザイン・実装・公開まで一貫して制作します。Web制作が初めての方もご相談いただけます。",
-    images: [{ url: "/hero.webp", width: 1920, height: 1080, alt: SITE.name }],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",

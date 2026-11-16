@@ -87,6 +87,9 @@ export function Footer() {
             <Link href="/privacy" className="text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors">
               プライバシーポリシー
             </Link>
+            <Link href="/data-deletion" className="text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors">
+              データ削除のご案内
+            </Link>
             <Link href="/tokushoho" className="text-[11px] text-zinc-400 hover:text-zinc-200 transition-colors">
               特定商取引法に基づく表記
             </Link>

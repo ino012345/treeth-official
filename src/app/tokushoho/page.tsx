@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
+import { standalonePageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = standalonePageMetadata({
+  path: "/tokushoho",
   title: "特定商取引法に基づく表記 | TREETH",
   description: "特定商取引法に基づく表記です。",
-};
+});
 
 const ROWS = [
   { label: "事業者名", value: "TREETH" },
@@ -50,7 +51,7 @@ const ROWS = [
 
 export default function TokushohoPage() {
   return (
-    <main className="min-h-screen bg-[var(--background)] px-6 pt-32 pb-24 md:px-8 md:pt-40 md:pb-32">
+    <main id="main" className="min-h-screen bg-[var(--background)] px-6 pt-32 pb-24 md:px-8 md:pt-40 md:pb-32">
       <div className="mx-auto max-w-3xl">
         <EyebrowBadge>LEGAL NOTICE</EyebrowBadge>
         <h1 className="mt-4 mb-2 text-3xl md:text-5xl font-semibold tracking-tighter text-zinc-50">

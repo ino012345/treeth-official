@@ -27,6 +27,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
+      // The URL meant for the Meta App Dashboard's data deletion instructions
+      // field; listed so it is discoverable like the policy it belongs to.
+      url: `${SITE.url}/data-deletion`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
       url: `${SITE.url}/tokushoho`,
       lastModified,
       changeFrequency: "yearly",
